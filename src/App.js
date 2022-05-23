@@ -16,6 +16,7 @@ function App() {
 
   const [messageScript, setMessageScript] = useState("");
 
+// test
   useEffect(() => {
     const userInStorage = getUserFromLocalStorage();
     if (userInStorage) {

@@ -2,9 +2,9 @@ import { useState } from "react";
 import { createDiscord } from "../api/api-user";
 
 const discordInput = {
-  name: "",
-  link: "",
-  channel: "",
+  discordNom: "",
+  discordLien: "",
+  discordChannel: "",
 };
 
 const DiscordForm = ({ activerResume }) => {
@@ -52,12 +52,12 @@ const DiscordForm = ({ activerResume }) => {
               <label className="form-label">DISCORD NAME</label>
               <input
                 type="text"
-                name="name"
-                value={discordForm.name}
+                name="discordNom"
+                value={discordForm.discordNom}
                 onChange={handleChange}
                 onFocus={handleFocus}
                 className="form-control"
-                id="name"
+                id="discordNom"
               />
             </div>
 
@@ -67,12 +67,12 @@ const DiscordForm = ({ activerResume }) => {
               </label>
               <input
                 type="text"
-                name="link"
-                value={discordForm.link}
+                name="discordLien"
+                value={discordForm.discordLien}
                 onChange={handleChange}
                 onFocus={handleFocus}
                 className="form-control"
-                id="link"
+                id="discordLien"
               />
             </div>
 
@@ -80,12 +80,12 @@ const DiscordForm = ({ activerResume }) => {
               <label className="form-label">DISCORD CHANNEL</label>
               <input
                 type="text"
-                name="channel"
-                value={discordForm.channel}
+                name="discordChannel"
+                value={discordForm.discordChannel}
                 onChange={handleChange}
                 onFocus={handleFocus}
                 className="form-control"
-                id="channel"
+                id="discordChannel"
               />
             </div>
 

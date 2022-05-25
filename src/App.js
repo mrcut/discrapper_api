@@ -119,6 +119,7 @@ function App() {
                         variant="contained"
                         onClick={handleClick}
                         startIcon={svgIcon}
+                        color="primary"
                       >
                         EXECUTER LE SCRIPT
                       </Button>

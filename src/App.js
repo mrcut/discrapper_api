@@ -10,13 +10,20 @@ import MessageDetail from "./messages/MessageDetail";
 import MessagesList from "./messages/MessagesList";
 import UserCreate from "./user/UserCreate";
 import UserUpdate from "./user/UserUpdate";
+import { Button, Icon } from "@mui/material";
+
+const svgIcon = (
+  <Icon>
+    <img alt="Discord" src="discord.png" height="25" width="20" />
+  </Icon>
+);
 
 function App() {
   const [user, setUser] = useState(undefined);
 
   const [messageScript, setMessageScript] = useState("");
 
-// test
+  // test
   useEffect(() => {
     const userInStorage = getUserFromLocalStorage();
     if (userInStorage) {
@@ -108,7 +115,13 @@ function App() {
                           AJOUTER UN UTILISATEUR
                         </Link>
                       </li>
-                      <button onClick={handleClick}>EXECUTER LE SCRIPT</button>
+                      <Button
+                        variant="contained"
+                        onClick={handleClick}
+                        startIcon={svgIcon}
+                      >
+                        EXECUTER LE SCRIPT
+                      </Button>
                     </>
                   ) : null}
 

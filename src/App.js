@@ -11,6 +11,9 @@ import MessagesList from "./messages/MessagesList";
 import UserCreate from "./user/UserCreate";
 import UserUpdate from "./user/UserUpdate";
 import { Button, Icon } from "@mui/material";
+import DiscordList from "./discord/DiscordList";
+import DiscordDetail from "./discord/DiscordDetail";
+import DiscordUpdate from "./discord/DiscordUpdate";
 
 const svgIcon = (
   <Icon>
@@ -106,6 +109,11 @@ function App() {
                   {user.role === "admin" ? (
                     <>
                       <li className="nav-item">
+                        <Link className="nav-link" to={"/discords"}>
+                          LISTE DES DISCORD
+                        </Link>
+                      </li>
+                      <li className="nav-item">
                         <Link className="nav-link" to={"/discord/create"}>
                           AJOUTER UN DISCORD
                         </Link>
@@ -157,6 +165,8 @@ function App() {
               )
             }
           ></Route>
+
+          <Route exact path="/discords" element={<DiscordList />}></Route>
           <Route
             exact
             path="/discord/create"
@@ -169,6 +179,16 @@ function App() {
             exact
             path="/message/:paramId"
             element={<MessageDetail />}
+          ></Route>
+          <Route
+            exact
+            path="discord/update"
+            element={<DiscordUpdate />}
+          ></Route>
+          <Route
+            exact
+            path="discord/:paramId"
+            element={<DiscordDetail />}
           ></Route>
           <Route exact path="/user/profile" element={<UserUpdate />}></Route>
         </Routes>

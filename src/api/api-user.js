@@ -2,7 +2,6 @@ import axios from "axios";
 import {
   urlDiscordById,
   urlDiscords,
-  urlDiscordUpdate,
   urlMessageById,
   urlMessages,
 } from "../constantes";
@@ -36,6 +35,14 @@ export const getAllDiscord = () => {
   return axios.get(urlDiscords, config);
 };
 
+export const deleteDiscord = (id) => {
+  const config = { headers: authHeader() };
+  return axios.delete(urlDiscordById + id);
+};
+
+export const getDiscordById = (id) => {
+  return axios.get(urlDiscordById + id);
+};
 // User
 
 export const createUser = (inputs) => {

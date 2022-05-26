@@ -1,31 +1,30 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { deleteMessage, getMessageById } from "../api/api-user";
+import { deleteDiscord, getDiscordById } from "../api/api-user";
 import { Button, ButtonGroup, Icon } from "@mui/material";
-import MessagesList from "./MessagesList";
 
-const MessageDetail = () => {
-  const [message, setMessage] = useState({});
+const DiscordDetail = () => {
+  const [discord, setDiscord] = useState({});
 
   let { paramId } = useParams();
 
   const redirect = useNavigate();
 
   const handleDelete = () => {
-    deleteMessage(paramId)
+    deleteDiscord(paramId)
       .then((response) => {
-        redirect("/messages");
+        redirect("/discords");
       })
       .catch((err) => {
-        const message = err.response.data.message;
-        console.log(message);
+        const discord = err.response.data.discord;
+        console.log(discord);
       });
   };
 
   useEffect(() => {
-    getMessageById(paramId).then((response) => {
+    getDiscordById(paramId).then((response) => {
       const data = response.data;
-      setMessage((actual) => data);
+      setDiscord((actual) => data);
     });
   }, []);
 
@@ -37,19 +36,19 @@ const MessageDetail = () => {
             <div className="col-md-8">
               <div className="card-body">
                 <h5 className="card-title">
-                  Id du Message : {message.messageId}
+                  Id du Discord : {discord.discordId}
                 </h5>
                 <p className="card-text">
-                  Contenu du Message : {message.messageContent}
+                  Nom du Discord : {discord.discordNom}
                 </p>
                 <p className="card-text">
-                  Catégorie du Message :{message.discord}
+                  Channel du Discord :{discord.discordChannel}
                 </p>
                 <p className="card-text">
-                  Provient du Discord : {message.messageDiscord}
+                  discordLien du Discord : {discord.discordLien}
                 </p>
                 <ButtonGroup>
-                  <Button href="user/profile" variant="contained">
+                  <Button href="/discord/update" variant="contained">
                     Update
                   </Button>
                   <Button
@@ -69,4 +68,4 @@ const MessageDetail = () => {
   );
 };
 
-export default MessageDetail;
+export default DiscordDetail;

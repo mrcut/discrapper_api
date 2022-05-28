@@ -4,6 +4,9 @@ import {
   urlDiscords,
   urlMessageById,
   urlMessages,
+  urlUserById,
+  urlUserProfile,
+  urlUsers,
 } from "../constantes";
 import {
   authHeader,
@@ -30,7 +33,7 @@ export const updateDiscord = (id) => {
   return axios.put(urlDiscordById + id);
 };
 
-export const getAllDiscord = () => {
+export const getAllDiscords = () => {
   const config = { headers: authHeader() };
   return axios.get(urlDiscords, config);
 };
@@ -50,14 +53,27 @@ export const createUser = (inputs) => {
   return axios.post(urlUserCreate, inputs, config);
 };
 
-export const updateUser = (inputs) => {
+export const editProfile = (inputs) => {
   const config = { headers: authHeader() };
-  return axios.put(urlDiscordById, inputs, config);
+  return axios.put(urlUserProfile, inputs, config);
 };
 
 export const executeScript = (inputs) => {
   const config = { headers: authHeader() };
   return axios.post(urlUserScript, inputs, config);
+};
+
+export const getAllUsers = () => {
+  const config = { headers: authHeader() };
+  return axios.get(urlUsers, config);
+};
+
+export const getUserById = (id) => {
+  return axios.get(urlUserById + id);
+};
+
+export const deleteUser = (id) => {
+  return axios.delete(urlUserById + id);
 };
 
 // Messages

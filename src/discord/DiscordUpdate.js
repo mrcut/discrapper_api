@@ -1,14 +1,8 @@
 import { useState } from "react";
-import {  updateDiscord } from "../api/api-user";
+import { updateDiscord } from "../api/api-user";
 
-const DiscordUpdate = ({
-  discordId,
-  discordNom,
-  discordLien,
-  discordChannel,
-}) => {
+const DiscordUpdate = ({ discordNom, discordLien, discordChannel }) => {
   const discordInput = {
-    discordId: discordId,
     discordNom: discordNom,
     discordLien: discordLien,
     discordChannel: discordChannel,
@@ -52,19 +46,6 @@ const DiscordUpdate = ({
           <form className="bg-light p-5" onSubmit={handleSubmit}>
             {message ? <p className="text-danger">{message}</p> : null}
             <h4> Update Discord</h4>
-
-            <div className="mb-3">
-              <label className="form-label">DISCORD ID</label>
-              <input
-                type="text"
-                name="discordId"
-                value={discordForm.discordId}
-                onChange={handleChange}
-                onFocus={handleFocus}
-                className="form-control"
-                id="discordId"
-              />
-            </div>
 
             <div className="mb-3">
               <label className="form-label">DISCORD NAME</label>

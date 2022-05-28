@@ -1,30 +1,30 @@
+import { Button, ButtonGroup } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { deleteDiscord, getDiscordById } from "../api/api-user";
-import { Button, ButtonGroup, Icon } from "@mui/material";
+import { deleteUser, getUserById } from "../api/api-user";
 
-const DiscordDetail = () => {
-  const [discord, setDiscord] = useState({});
+const UserDetail = () => {
+  const [user, setUser] = useState({});
 
   let { paramId } = useParams();
 
   const redirect = useNavigate();
 
   const handleDelete = () => {
-    deleteDiscord(paramId)
+    deleteUser(paramId)
       .then((response) => {
-        redirect("/discords");
+        redirect("/users");
       })
       .catch((err) => {
-        const discord = err.response.data.discord;
-        console.log(discord);
+        const user = err.response.data.user;
+        console.log(user);
       });
   };
 
   useEffect(() => {
-    getDiscordById(paramId).then((response) => {
+    getUserById(paramId).then((response) => {
       const data = response.data;
-      setDiscord((actual) => data);
+      setUser((actual) => data);
     });
   }, []);
 
@@ -35,17 +35,15 @@ const DiscordDetail = () => {
           <div className="row g-0">
             <div className="col-md-8">
               <div className="card-body">
-                <h5 className="card-title">
-                  Id du Discord : {discord.discordId}
-                </h5>
+                <h5 className="card-text">Id : {user.utilisateurId}</h5>
+                <p className="card-title">Email : {user.utilisateurEmail}</p>
+                <p className="card-text">Nom : {user.utilisateurNom}</p>
+                <p className="card-text">Prenom :{user.utilisateurPrenom}</p>
+                <p className="card-text">Tel : {user.utilisateurTel}</p>
+                <p className="card-text">Discord : {user.utilisateurDiscord}</p>
+                <p className="card-text">Role : {user.utilisateurRole}</p>
                 <p className="card-text">
-                  Nom du Discord : {discord.discordNom}
-                </p>
-                <p className="card-text">
-                  Channel du Discord :{discord.discordChannel}
-                </p>
-                <p className="card-text">
-                  Lien du Discord : {discord.discordLien}
+                  Date d'Inscription : {user.utilisateurDate}
                 </p>
                 <ButtonGroup>
                   <Button href="/discord/update" variant="contained">
@@ -68,4 +66,4 @@ const DiscordDetail = () => {
   );
 };
 
-export default DiscordDetail;
+export default UserDetail;

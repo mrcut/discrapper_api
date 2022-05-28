@@ -9,11 +9,13 @@ import Login from "./home/Login";
 import MessageDetail from "./messages/MessageDetail";
 import MessagesList from "./messages/MessagesList";
 import UserCreate from "./user/UserCreate";
-import UserUpdate from "./user/UserUpdate";
 import { Button, Icon } from "@mui/material";
 import DiscordList from "./discord/DiscordList";
 import DiscordDetail from "./discord/DiscordDetail";
 import DiscordUpdate from "./discord/DiscordUpdate";
+import UserList from "./user/UserList";
+import UserProfile from "./user/UserUpdate";
+import UserDetail from "./user/UserDetail";
 
 const svgIcon = (
   <Icon>
@@ -113,6 +115,13 @@ function App() {
                           LISTE DES DISCORD
                         </Link>
                       </li>
+
+                      <li className="nav-item">
+                        <Link className="nav-link" to={"/users"}>
+                          LISTE DES UTILISATEURS
+                        </Link>
+                      </li>
+
                       <li className="nav-item">
                         <Link className="nav-link" to={"/discord/create"}>
                           AJOUTER UN DISCORD
@@ -165,7 +174,8 @@ function App() {
               )
             }
           ></Route>
-
+          <Route exact path="/users" element={<UserList />}></Route>
+          <Route exact path="/user/:paramId" element={<UserDetail />}></Route>
           <Route exact path="/discords" element={<DiscordList />}></Route>
           <Route
             exact
@@ -190,7 +200,7 @@ function App() {
             path="discord/:paramId"
             element={<DiscordDetail />}
           ></Route>
-          <Route exact path="/user/profile" element={<UserUpdate />}></Route>
+          <Route exact path="/user/profile" element={<UserProfile />}></Route>
         </Routes>
       </div>
     </BrowserRouter>

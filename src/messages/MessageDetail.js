@@ -49,7 +49,7 @@ const MessageDetail = () => {
                   Provient du Discord : {message.messageDiscord}
                 </p>
                 <ButtonGroup>
-                  <Button href="user/profile" variant="contained">
+                  <Button href="/user/profile" variant="contained">
                     Update
                   </Button>
                   <Button

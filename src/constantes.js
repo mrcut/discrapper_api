@@ -4,23 +4,29 @@ export const urlLogin = urlApi + "login";
 
 export const userKey = "user";
 
+export const urlUsers = urlApi + "users";
+
+export const urlUserById = urlApi + "user/";
+
 export const urlUserCreate = urlApi + "user/create";
 
 export const urlUserScript = urlApi + "user/script";
 
-export const urlUserUpdate = urlApi + "user/update";
+export const urlUserProfile = urlApi + "user/profile";
+
+// =========================================
 
 export const urlMessages = urlApi + "messages";
 
 export const urlMessageById = urlApi + "message/";
+
+// =========================================
 
 export const urlDiscordCreate = urlApi + "discord/create";
 
 export const urlDiscords = urlApi + "discords";
 
 export const urlDiscordById = urlApi + "discord/";
-
-
 
 export const getUserFromLocalStorage = () => {
   const userJson = localStorage.getItem(userKey);

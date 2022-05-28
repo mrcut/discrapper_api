@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getAllDiscord } from "../api/api-user";
+import { getAllDiscords } from "../api/api-user";
 
 const DiscordList = () => {
   const [liste, setListe] = useState([]);
 
   useEffect(() => {
-    getAllDiscord()
+    getAllDiscords()
       .then((response) => {
         const discords = response.data;
         setListe((actual) => discords);

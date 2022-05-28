@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { updateUser } from "../api/api-user";
+import { editProfile } from "../api/api-user";
 import { getUserFromLocalStorage } from "../constantes";
 
-const UserUpdate = ({ setCurrentUser }) => {
+const UserProfile = ({ setCurrentUser }) => {
   const [userForm, setUserFrom] = useState({
     nom: "",
     prenom: "",
@@ -29,7 +29,7 @@ const UserUpdate = ({ setCurrentUser }) => {
   };
 
   const handleClick = () => {
-    updateUser(userForm)
+    editProfile(userForm)
       .then((response) => {
         const emp = response.data;
         console.log(emp);
@@ -114,4 +114,4 @@ const UserUpdate = ({ setCurrentUser }) => {
   );
 };
 
-export default UserUpdate;
+export default UserProfile;

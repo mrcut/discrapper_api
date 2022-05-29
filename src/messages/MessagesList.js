@@ -1,9 +1,25 @@
+import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
-import { getMessages } from "../api/api-user";
-import MessageCard from "./MessageCard";
+import { Link } from "react-router-dom";
+import {
+  getAllCategories,
+  getMessageByCategorie,
+  getMessages,
+} from "../api/api-messages";
 
 const MessagesList = () => {
   const [liste, setListe] = useState([]);
+  const [categorie, setCategorie] = useState([]);
+
+  useEffect(() => {
+    getAllCategories()
+      .then((response) => {
+        setCategorie((actual) => response.data);
+      })
+      .catch((err) => {
+        console.log(err.response.data.categorie);
+      });
+  }, []);
 
   useEffect(() => {
     getMessages()
@@ -19,28 +35,44 @@ const MessagesList = () => {
       });
   }, []);
 
-  const messagesJsx = liste.map((message) => (
-    <div key={message.messageId} className="col">
-      <MessageCard
-        id={message.messageId}
-        content={message.messageContent}
-        categorie={message.categorieId.categorieNom}
-        discord={message.discordId.discordNom}
-      />
-    </div>
-  ));
+  const handleClick = (id) => {
+    getMessageByCategorie(id).then((response) => {
+      const msg = response.data;
+    });
+  };
 
   return (
-    <>
-      <div className="row">
-        <div className="col-8">
-          <div className="text-center">
-            <h1>Liste des Messages</h1>
+    <div>
+      <h1>Liste des Messages</h1>
+
+      <div>
+        {categorie.map((categorie) => (
+          <div key={categorie.categorieId}>
+            <Button onClick={handleClick(categorie.categorieId)}>
+              {categorie.categorieNom}
+            </Button>
           </div>
-          <div className="row row-cols-1 row-cols-md-4 g-4">{messagesJsx}</div>
-        </div>
+        ))}
       </div>
-    </>
+
+      <ul className="ul-menu">
+        {liste.map((message) => (
+          <li key={message.messageId} className="li-button">
+            <div>
+              <p className="card-title">
+                <Link to={"/message/" + message.messageId}>
+                  {message.messageContent}
+                </Link>
+              </p>
+              <p>Id : {message.messageId}</p>
+              <Button onClick={handleClick}>
+                {message.categorieId.categorieNom}{" "}
+              </Button>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 

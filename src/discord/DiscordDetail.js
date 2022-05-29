@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { deleteDiscord, getDiscordById } from "../api/api-user";
+
 import { Button, ButtonGroup, Icon } from "@mui/material";
+import { deleteDiscord, getDiscordById } from "../api/api-discord";
 
 const DiscordDetail = () => {
   const [discord, setDiscord] = useState({});

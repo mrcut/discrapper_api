@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { deleteMessage, getMessageById } from "../api/api-user";
-import { Button, ButtonGroup, Icon } from "@mui/material";
-import MessagesList from "./MessagesList";
+import { Button, ButtonGroup } from "@mui/material";
+import { deleteMessage, getMessageById } from "../api/api-messages";
 
 const MessageDetail = () => {
   const [message, setMessage] = useState({});

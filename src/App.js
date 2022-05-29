@@ -14,8 +14,10 @@ import DiscordList from "./discord/DiscordList";
 import DiscordDetail from "./discord/DiscordDetail";
 import DiscordUpdate from "./discord/DiscordUpdate";
 import UserList from "./user/UserList";
-import UserProfile from "./user/UserUpdate";
+import UserProfile from "./user/UserProfile";
 import UserDetail from "./user/UserDetail";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 
 const svgIcon = (
   <Icon>
@@ -26,9 +28,6 @@ const svgIcon = (
 function App() {
   const [user, setUser] = useState(undefined);
 
-  const [messageScript, setMessageScript] = useState("");
-
-  // test
   useEffect(() => {
     const userInStorage = getUserFromLocalStorage();
     if (userInStorage) {
@@ -41,12 +40,6 @@ function App() {
     setUser((actual) => null);
   };
 
-  const handleFocus = () => {
-    if (messageScript) {
-      setMessageScript((actuel) => "");
-    }
-  };
-
   const handleClick = () => {
     executeScript()
       .then((response) => {
@@ -57,32 +50,19 @@ function App() {
       .catch((err) => {
         const message = err.response.data.message;
         alert(message);
-
-        setMessageScript((actual) => err.response.data.message);
       });
   };
 
   return (
     <BrowserRouter>
-      <nav
-        className="navbar navbar-expand-lg navbar-light bg-light"
-        onFocus={handleFocus}
-      >
+      <Tabs>
         <div className="container-fluid">
-          <Link className="navbar-brand" to={"/"}>
-            HOME
-          </Link>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
+          <Tab>
+            <Link className="navbar-brand" to={"/"}>
+              HOME
+            </Link>
+          </Tab>
+
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
@@ -159,7 +139,7 @@ function App() {
             </ul>
           </div>
         </div>
-      </nav>
+      </Tabs>
 
       <div className="container p-5 ">
         <Routes>

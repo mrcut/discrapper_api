@@ -1,25 +1,9 @@
-import { Button, ButtonGroup } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { deleteUser, getAllUsers } from "../api/api-user";
+import { Link } from "react-router-dom";
+import { getAllUsers } from "../api/api-user";
 
 const UserList = () => {
   const [liste, setListe] = useState([]);
-
-  let { paramId } = useParams();
-
-  const redirect = useNavigate();
-
-  const handleDelete = () => {
-    deleteUser(paramId)
-      .then((response) => {
-        redirect("/discords");
-      })
-      .catch((err) => {
-        const discord = err.response.data.discord;
-        console.log(discord);
-      });
-  };
 
   useEffect(() => {
     getAllUsers()

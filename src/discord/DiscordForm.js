@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createDiscord } from "../api/api-user";
+import { createDiscord } from "../api/api-discord";
 
 const discordInput = {
   discordNom: "",

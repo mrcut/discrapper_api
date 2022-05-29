@@ -20,6 +20,8 @@ export const urlMessages = urlApi + "messages";
 
 export const urlMessageById = urlApi + "message/";
 
+export const urlMessageByCategorie = urlApi + "category/";
+
 // =========================================
 
 export const urlDiscordCreate = urlApi + "discord/create";
@@ -27,6 +29,12 @@ export const urlDiscordCreate = urlApi + "discord/create";
 export const urlDiscords = urlApi + "discords";
 
 export const urlDiscordById = urlApi + "discord/";
+
+// =========================================
+
+export const urlCategories = urlApi + "categories";
+
+// ========================================
 
 export const getUserFromLocalStorage = () => {
   const userJson = localStorage.getItem(userKey);

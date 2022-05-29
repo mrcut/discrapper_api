@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { updateDiscord } from "../api/api-user";
+import { updateDiscord } from "../api/api-discord";
 
 const DiscordUpdate = ({ discordNom, discordLien, discordChannel }) => {
   const discordInput = {

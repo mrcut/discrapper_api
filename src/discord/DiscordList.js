@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getAllDiscords } from "../api/api-user";
+import { getAllDiscords } from "../api/api-discord";
 
 const DiscordList = () => {
   const [liste, setListe] = useState([]);

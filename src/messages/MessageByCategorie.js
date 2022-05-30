@@ -21,6 +21,7 @@ const MessageByCategorie = ({ id }) => {
     <div>
       <h1>Liste des Messages</h1>
 
+      <h4>{categorie.categorieNom}</h4>
       <ul className="ul-menu">
         {categorie.map((message) => (
           <li key={message.messageId} className="li-button">

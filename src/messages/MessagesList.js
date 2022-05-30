@@ -36,8 +36,6 @@ const MessagesList = () => {
 
   return (
     <div>
-      <h1>Liste des Messages</h1>
-
       <div>
         {categorie.map((categorie) => (
           <div key={categorie.categorieId}>

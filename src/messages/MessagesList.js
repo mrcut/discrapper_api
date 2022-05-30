@@ -1,15 +1,14 @@
 import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  getAllCategories,
-  getMessageByCategorie,
-  getMessages,
-} from "../api/api-messages";
+import { getAllCategories, getMessages } from "../api/api-messages";
+import MessageByCategorie from "./MessageByCategorie";
 
 const MessagesList = () => {
   const [liste, setListe] = useState([]);
   const [categorie, setCategorie] = useState([]);
+
+  const [idCategorie, setIdCategorie] = useState(0);
 
   useEffect(() => {
     getAllCategories()
@@ -35,12 +34,6 @@ const MessagesList = () => {
       });
   }, []);
 
-  const handleClick = (id) => {
-    getMessageByCategorie(id).then((response) => {
-      const msg = response.data;
-    });
-  };
-
   return (
     <div>
       <h1>Liste des Messages</h1>
@@ -48,7 +41,7 @@ const MessagesList = () => {
       <div>
         {categorie.map((categorie) => (
           <div key={categorie.categorieId}>
-            <Button onClick={handleClick(categorie.categorieId)}>
+            <Button onClick={() => setIdCategorie(categorie.categorieId)}>
               {categorie.categorieNom}
             </Button>
           </div>
@@ -56,21 +49,25 @@ const MessagesList = () => {
       </div>
 
       <ul className="ul-menu">
-        {liste.map((message) => (
-          <li key={message.messageId} className="li-button">
-            <div>
-              <p className="card-title">
-                <Link to={"/message/" + message.messageId}>
-                  {message.messageContent}
-                </Link>
-              </p>
-              <p>Id : {message.messageId}</p>
-              <Button onClick={handleClick}>
-                {message.categorieId.categorieNom}{" "}
-              </Button>
-            </div>
-          </li>
-        ))}
+        {idCategorie !== 0 ? (
+          <MessageByCategorie id={idCategorie} />
+        ) : (
+          <>
+            {liste.map((message) => (
+              <li key={message.messageId} className="li-button">
+                <div>
+                  <p className="card-title">
+                    <Link to={"/message/" + message.messageId}>
+                      {message.messageContent}
+                    </Link>
+                  </p>
+                  <p>Id : {message.messageId}</p>
+                  <Button>{message.categorieId.categorieNom}</Button>
+                </div>
+              </li>
+            ))}
+          </>
+        )}
       </ul>
     </div>
   );

@@ -21,7 +21,8 @@ export const deleteMessage = (id) => {
 };
 
 export const getMessageByCategorie = (id) => {
-  return axios.get(urlMessageByCategorie + id);
+  const config = { headers: authHeader() };
+  return axios.get(urlMessageByCategorie + id, config);
 };
 
 export const getAllCategories = () => {

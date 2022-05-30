@@ -18,6 +18,7 @@ import UserProfile from "./user/UserProfile";
 import UserDetail from "./user/UserDetail";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import MessageByCategorie from "./messages/MessageByCategorie";
 
 const svgIcon = (
   <Icon>
@@ -161,6 +162,11 @@ function App() {
             exact
             path="/discord/create"
             element={<DiscordCreate />}
+          ></Route>
+          <Route
+            exact
+            path="/category/:paramId"
+            element={<MessageByCategorie />}
           ></Route>
           <Route exact path="/messages" element={<MessagesList />}></Route>
 

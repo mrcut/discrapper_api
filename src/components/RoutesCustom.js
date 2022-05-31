@@ -15,6 +15,7 @@ import DiscordDetail from "../discord/DiscordDetail";
 import DiscordUpdate from "../discord/DiscordUpdate";
 import { useEffect, useState } from "react";
 import { getUserFromLocalStorage } from "../constantes";
+import Statistiques from "../stats/Statistiques";
 
 const RoutesCustom = () => {
   const [user, setUser] = useState(undefined);
@@ -39,6 +40,7 @@ const RoutesCustom = () => {
       />
       <Route path="/faq" element={<FAQ />} />
       <Route path="/contact" element={<Contact />} />
+      <Route path="/stats" element={<Statistiques />} />
       <Route path="/users" element={<UserList />} />
       <Route path="/user/:paramId" element={<UserDetail />} />
       <Route path="/user/create" element={<UserCreate />} />

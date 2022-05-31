@@ -1,16 +1,7 @@
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import { Button, Icon } from "@mui/material";
-import { Link } from "react-router-dom";
-import { getUserFromLocalStorage, userKey } from "../constantes";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { executeScript } from "../api/api-user";
-
-const svgIcon = (
-  <Icon>
-    <img alt="Discord" src="discord.png" height="25" width="20" />
-  </Icon>
-);
+import { getUserFromLocalStorage, userKey } from "../constantes";
 
 const Navbar = () => {
   const [user, setUser] = useState(undefined);
@@ -41,68 +32,26 @@ const Navbar = () => {
   };
 
   return (
-    <Tabs>
-      <Tab>
-        <Link to={"/"}>HOME</Link>
-      </Tab>
+    <nav>
+      <Link to={"/"}>Home</Link>
+      <Link to={"/faq"}>FAQ</Link>
+      <Link to={"/contact"}>Contact</Link>
+      {user ? (
+        <>
+          <Link to={"/messages"}>Messages</Link>
+          <Link to={"/stats"}>Statistiques</Link>
 
-      <ul>
-        <li>
-          <Link to={"/"}>FAQ</Link>
-        </li>
-        <li>
-          <Link to={"/"}>CONTACT</Link>
-        </li>
-        {user ? (
-          <>
-            <li>
-              <Link to={"/messages"}>MESSAGES</Link>
-            </li>
-
-            <li>
-              <Link to={"/"}>STATISTIQUES</Link>
-            </li>
-            {user.role === "admin" ? (
-              <>
-                <li>
-                  <Link to={"/discords"}>LISTE DES DISCORD</Link>
-                </li>
-
-                <li>
-                  <Link to={"/users"}>LISTE DES UTILISATEURS</Link>
-                </li>
-
-                <li>
-                  <Link to={"/discord/create"}>AJOUTER UN DISCORD</Link>
-                </li>
-                <li>
-                  <Link to={"/user/create"}>AJOUTER UN UTILISATEUR</Link>
-                </li>
-                <Button
-                  variant="contained"
-                  onClick={handleClick}
-                  startIcon={svgIcon}
-                  color="primary"
-                >
-                  EXECUTER LE SCRIPT
-                </Button>
-              </>
-            ) : null}
-
-            <li>
-              <Link to={"/"} onClick={logout}>
-                LOGOUT
-              </Link>
-            </li>
-
-            <li>
-              <Link to={"/user/profile"}>MON COMPTE</Link>
-            </li>
-          </>
-        ) : null}
-      </ul>
-    </Tabs>
+          {user.role === "admin" ? (
+            <>
+              <Link to={"/discords"}>Discords</Link>
+            </>
+          ) : null}
+          <Link to={"/"} onClick={logout}>
+            Logout
+          </Link>
+        </>
+      ) : null}
+    </nav>
   );
 };
-
 export default Navbar;

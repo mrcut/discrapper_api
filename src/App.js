@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import { getUserFromLocalStorage } from "./constantes";
+import Navbar from "./components/Navbar";
 import RoutesCustom from "./components/RoutesCustom";
 
 function App() {
   return (
     <div className="App">
+      <Navbar />
       <RoutesCustom />
     </div>
   );

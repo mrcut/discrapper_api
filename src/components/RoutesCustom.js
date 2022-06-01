@@ -1,6 +1,5 @@
 import { Route, Routes } from "react-router-dom";
 import Home from "../home/Home";
-import Contact from "../home/Contact";
 import FAQ from "../home/FAQ";
 import Login from "../home/Login";
 import UserList from "../user/UserList";
@@ -13,13 +12,11 @@ import DiscordList from "../discord/DiscordList";
 import DiscordCreate from "../discord/DiscordCreate";
 import DiscordDetail from "../discord/DiscordDetail";
 import DiscordUpdate from "../discord/DiscordUpdate";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getUserFromLocalStorage } from "../constantes";
 import Statistiques from "../stats/Statistiques";
 
-const RoutesCustom = () => {
-  const [user, setUser] = useState(undefined);
-
+const RoutesCustom = ({ user, setUser }) => {
   useEffect(() => {
     const userInStorage = getUserFromLocalStorage();
     if (userInStorage) {
@@ -39,7 +36,6 @@ const RoutesCustom = () => {
         }
       />
       <Route path="/faq" element={<FAQ />} />
-      <Route path="/contact" element={<Contact />} />
       <Route path="/stats" element={<Statistiques />} />
       <Route path="/users" element={<UserList />} />
       <Route path="/user/:paramId" element={<UserDetail />} />

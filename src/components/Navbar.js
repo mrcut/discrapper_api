@@ -16,7 +16,7 @@ import { navbarUser } from "./NavbarConst";
 import { useNavigate } from "react-router-dom";
 
 const pages = ["Home", "FAQ"];
-const pagesEmploye = [pages, "Messages", "Statistiques"];
+const pagesEmployee = [pages, "Messages", "Statistiques"];
 const settings = ["Profile", "Logout"];
 const settingsAdmin = [
   "Profile",

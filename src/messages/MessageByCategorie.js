@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { getMessageByCategorie } from "../api/api-messages";
-import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 
 const MessageByCategorie = ({ id }) => {

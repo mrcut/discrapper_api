@@ -15,8 +15,9 @@ import DiscordUpdate from "../discord/DiscordUpdate";
 import { useEffect } from "react";
 import { getUserFromLocalStorage } from "../constantes";
 import Statistiques from "../stats/Statistiques";
+import Logout from "../home/Logout";
 
-const RoutesCustom = ({ user, setUser }) => {
+const RoutesCustom = ({ user, setUser, logout }) => {
   useEffect(() => {
     const userInStorage = getUserFromLocalStorage();
     if (userInStorage) {
@@ -37,6 +38,7 @@ const RoutesCustom = ({ user, setUser }) => {
       />
       <Route path="/faq" element={<FAQ />} />
       <Route path="/stats" element={<Statistiques />} />
+      <Route path="/logout" element={<Logout />} />
       <Route path="/users" element={<UserList />} />
       <Route path="/user/:paramId" element={<UserDetail />} />
       <Route path="/user/create" element={<UserCreate />} />

@@ -12,19 +12,8 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-import { navbarUser } from "./NavbarConst";
+import { navbarEmploye, navbarUser, settingsAdmin } from "./NavbarConst";
 import { useNavigate } from "react-router-dom";
-
-const pages = ["Home", "FAQ"];
-const pagesEmployee = [pages, "Messages", "Statistiques"];
-const settings = ["Profile", "Logout"];
-const settingsAdmin = [
-  "Profile",
-  "Exécuter le Script",
-  "Ajouter un User",
-  "Ajouter un Discord",
-  "Logout",
-];
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -99,9 +88,12 @@ const Navbar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {navbarUser.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+              {navbarEmploye.map((item, index) => (
+                <MenuItem key={item.id} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">
+                    {item.icon}
+                    {item.label}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -126,13 +118,14 @@ const Navbar = () => {
             Discrapper
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {navbarUser.map((item, index) => (
+            {navbarEmploye.map((item, index) => (
               <Button
                 key={item.id}
                 onClick={() => navigate(item.route)}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
                 {item.icon}
+                {item.label}
               </Button>
             ))}
           </Box>
@@ -159,9 +152,12 @@ const Navbar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+              {settingsAdmin.map((item, index) => (
+                <MenuItem key={item.id} onClick={() => navigate(item.route)}>
+                  <Typography textAlign="center">
+                    {item.icon}
+                    {item.label}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>

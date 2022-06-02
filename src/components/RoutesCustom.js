@@ -38,7 +38,6 @@ const RoutesCustom = ({ user, setUser, logout }) => {
       />
       <Route path="/faq" element={<FAQ />} />
       <Route path="/stats" element={<Statistiques />} />
-      <Route path="/logout" element={<Logout />} />
       <Route path="/users" element={<UserList />} />
       <Route path="/user/:paramId" element={<UserDetail />} />
       <Route path="/user/create" element={<UserCreate />} />

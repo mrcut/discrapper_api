@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import RoutesCustom from "./components/RoutesCustom";
 import { getUserFromLocalStorage, userKey } from "./constantes";
-import Logout from "./home/Logout";
 
 function App() {
   const [user, setUser] = useState(undefined);
@@ -14,11 +13,15 @@ function App() {
     }
   }, []);
 
+  const logout = () => {
+    localStorage.removeItem(userKey);
+    setUser((actual) => null);
+  };
+
   return (
     <div className="App">
       <Navbar user={user} setUser={setUser} />
       <RoutesCustom user={user} setUser={setUser} />
-      {/* <Logout user={user} setUser={setUser} /> */}
     </div>
   );
 }

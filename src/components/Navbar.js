@@ -1,4 +1,3 @@
-import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -12,14 +11,23 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-import { navbarEmploye, navbarUser, settingsAdmin } from "./NavbarConst";
+
+import {
+  navbarEmploye,
+  navbarUser,
+  settings,
+  settingsAdmin,
+} from "./NavbarConst";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-const Navbar = () => {
+const Navbar = ({ user }) => {
   const navigate = useNavigate();
-
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  // console.log("user : ", user);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const [nav, setNav] = useState(navbarUser("faaaq"));
+  const [menu, setMenu] = useState(settings);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -35,6 +43,15 @@ const Navbar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  useEffect(() => {
+    if (user && (user.role === "admin" || user.role === "employe")) {
+      setNav((actual) => navbarEmploye);
+      setMenu((actual) => settingsAdmin);
+    }
+  }, [user]);
+  console.log(nav);
+  console.log(menu);
 
   return (
     <AppBar position="static">
@@ -88,7 +105,7 @@ const Navbar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {navbarEmploye.map((item, index) => (
+              {nav.map((item, index) => (
                 <MenuItem key={item.id} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">
                     {item.icon}
@@ -118,10 +135,13 @@ const Navbar = () => {
             Discrapper
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {navbarEmploye.map((item, index) => (
+            {nav.map((item, index) => (
               <Button
                 key={item.id}
-                onClick={() => navigate(item.route)}
+                onClick={() => {
+                  alert("text");
+                  navigate(item.route);
+                }}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
                 {item.icon}
@@ -152,7 +172,7 @@ const Navbar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settingsAdmin.map((item, index) => (
+              {menu.map((item, index) => (
                 <MenuItem key={item.id} onClick={() => navigate(item.route)}>
                   <Typography textAlign="center">
                     {item.icon}

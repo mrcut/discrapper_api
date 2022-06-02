@@ -4,12 +4,9 @@ import { userKey } from "../constantes";
 const Logout = ({ user, setUser }) => {
   const nav = useParams();
 
-  //   localStorage.removeItem(userKey);
-  //   setUser((actual) => null)  ;
-
-  console.log("logout");
-
-  //   nav("/login");
+  localStorage.removeItem(userKey);
+  setUser((actual) => null);
+  nav("/login");
 };
 
 export default Logout;

@@ -9,11 +9,11 @@ import {
   QuestionAnswer,
 } from "@mui/icons-material";
 
-export const navbarUser = [
+export const navbarUser = (labelValue) => [
   {
     id: 0,
     icon: <QuestionAnswer />,
-    label: "FAQ",
+    label: labelValue,
     route: "faq",
   },
 ];
@@ -77,6 +77,6 @@ export const settingsAdmin = [
     id: 4,
     icon: <Logout />,
     label: "Logout",
-    route: "logout",
+    route: "/",
   },
 ];

@@ -3,9 +3,9 @@ import { updateDiscord } from "../api/api-discord";
 
 const DiscordUpdate = ({ discordNom, discordLien, discordChannel }) => {
   const discordInput = {
-    discordNom: discordNom,
-    discordLien: discordLien,
-    discordChannel: discordChannel,
+    discordNom: "",
+    discordLien: "",
+    discordChannel: "",
   };
 
   const [discordForm, setDiscordForm] = useState({ ...discordInput });

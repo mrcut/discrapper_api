@@ -1,3 +1,5 @@
+import { AddCircle } from "@mui/icons-material";
+import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getAllDiscords } from "../api/api-discord";
@@ -13,30 +15,42 @@ const DiscordList = () => {
         console.log(discords);
       })
       .catch((err) => {
-        const discord = err.response.data.discord;
-        console.log(discord);
+        console.log(err.response.data);
       });
   }, []);
 
   return (
     <div>
       <h1>Liste des discords</h1>
-      <ul className="ul-menu">
-        {liste.map((discord) => (
-          <li key={discord.discordId} className="li-button">
-            <div>
-              <p>{discord.discordId}</p>
-              <p className="card-title">
+
+      <div>
+        <Button
+          variant="contained"
+          startIcon={<AddCircle />}
+          href="/discord/create"
+        >
+          Add Discord
+        </Button>
+        <table border="1" cellPadding={10}>
+          <tr>
+            <td>Nom</td>
+            <td>Lien</td>
+            <td>Channel ID</td>
+          </tr>
+
+          {liste.map((discord) => (
+            <tr key={discord.discordId}>
+              <td>
                 <Link to={"/discord/" + discord.discordId}>
                   {discord.discordNom}
                 </Link>
-              </p>
-              <p>{discord.discordLien}</p>
-              <p>{discord.discordChanel}</p>
-            </div>
-          </li>
-        ))}
-      </ul>
+              </td>
+              <td>{discord.discordLien}</td>
+              <td>{discord.discordChannel}</td>
+            </tr>
+          ))}
+        </table>
+      </div>
     </div>
   );
 };

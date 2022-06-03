@@ -23,7 +23,18 @@ import { useEffect, useState } from "react";
 
 const Navbar = ({ user }) => {
   const navigate = useNavigate();
-  // console.log("user : ", user);
+
+  const handleClick = (item) => {
+    console.log("compteur");
+    if (item.id === 0) {
+      alert("Nope");
+      console.log("compteur2");
+    } else {
+      alert("yep");
+      console.log("compteur3");
+    }
+  };
+
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [nav, setNav] = useState(navbarUser("faaaq"));
@@ -138,10 +149,7 @@ const Navbar = ({ user }) => {
             {nav.map((item, index) => (
               <Button
                 key={item.id}
-                onClick={() => {
-                  alert("text");
-                  navigate(item.route);
-                }}
+                onClick={handleClick}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
                 {item.icon}
@@ -173,7 +181,7 @@ const Navbar = ({ user }) => {
               onClose={handleCloseUserMenu}
             >
               {menu.map((item, index) => (
-                <MenuItem key={item.id} onClick={() => navigate(item.route)}>
+                <MenuItem key={item.id} onClick={handleClick}>
                   <Typography textAlign="center">
                     {item.icon}
                     {item.label}

@@ -22,8 +22,8 @@ function App() {
 
   return (
     <div className="App">
-      {/* <Navbar user={user} setUser={setUser} /> */}
-      <Header />
+      <Navbar user={user} setUser={setUser} logout={logout} />
+      {/* <Header /> */}
       <RoutesCustom user={user} setUser={setUser} />
     </div>
   );

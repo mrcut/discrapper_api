@@ -16,6 +16,8 @@ import { useEffect } from "react";
 import { getUserFromLocalStorage } from "../constantes";
 import Statistiques from "../stats/Statistiques";
 import Logout from "../home/Logout";
+import NotFound from "./NotFound";
+import UserUpdate from "../user/UserUpdate";
 
 const RoutesCustom = ({ user, setUser, logout }) => {
   useEffect(() => {
@@ -41,13 +43,15 @@ const RoutesCustom = ({ user, setUser, logout }) => {
       <Route path="/users" element={<UserList />} />
       <Route path="/user/:paramId" element={<UserDetail />} />
       <Route path="/user/create" element={<UserCreate />} />
+      <Route path="/user/update/:paramId" element={<UserUpdate />} />
       <Route path="/user/profile" element={<UserProfile />} />
       <Route path="/messages" element={<MessageList />} />
       <Route path="/message/:paramId" element={<MessageDetail />} />
       <Route path="/discords" element={<DiscordList />} />
       <Route path="/discord/:paramId" element={<DiscordDetail />} />
       <Route path="/discord/create" element={<DiscordCreate />} />
-      <Route path="/discord/update" element={<DiscordUpdate />} />
+      <Route path="/discord/update/:paramId" element={<DiscordUpdate />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

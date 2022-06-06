@@ -38,7 +38,7 @@ export const settings = [
     id: 0,
     icon: <AccountBox />,
     label: "Profile",
-    route: "user/profile",
+    route: "/user/profile",
   },
   {
     id: 1,
@@ -53,13 +53,12 @@ export const settingsAdmin = [
     id: 0,
     icon: <AccountBox />,
     label: "Profile",
-    route: "profile",
+    route: "/user/profile",
   },
   {
     id: 1,
     icon: <Javascript />,
     label: "Executer le Script",
-    route: "script",
   },
   {
     id: 2,

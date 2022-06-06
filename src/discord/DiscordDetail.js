@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { Button, ButtonGroup, Icon } from "@mui/material";
+import { Button, ButtonGroup } from "@mui/material";
 import { deleteDiscord, getDiscordById } from "../api/api-discord";
 
 const DiscordDetail = () => {
@@ -49,7 +49,10 @@ const DiscordDetail = () => {
                   Lien du Discord : {discord.discordLien}
                 </p>
                 <ButtonGroup>
-                  <Button href="/discord/update" variant="contained">
+                  <Button
+                    href={"/discord/update/" + discord.discordId}
+                    variant="contained"
+                  >
                     Update
                   </Button>
                   <Button

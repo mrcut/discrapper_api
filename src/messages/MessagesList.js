@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Card, CardActions, CardHeader } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getAllCategories, getMessages } from "../api/api-messages";
@@ -52,15 +52,17 @@ const MessagesList = () => {
         ) : (
           <>
             {liste.map((message) => (
-              <li key={message.messageId} className="li-button">
+              <li key={message.messageId}>
                 <div>
-                  <p className="card-title">
-                    <Link to={"/message/" + message.messageId}>
-                      {message.messageContent}
-                    </Link>
-                  </p>
-                  <p>Id : {message.messageId}</p>
-                  <Button>{message.categorieId.categorieNom}</Button>
+                  <Card>
+                    <p className="card-title">
+                      <Link to={"/message/" + message.messageId}>
+                        {message.messageContent}
+                      </Link>
+                    </p>
+                    <p>Id : {message.messageId}</p>
+                    <Button>{message.categorieId.categorieNom}</Button>
+                  </Card>
                 </div>
               </li>
             ))}

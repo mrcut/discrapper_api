@@ -1,9 +1,11 @@
+import { Typography } from "@mui/material";
+
 const Home = ({ currentUser }) => {
   return (
-    <div className="text-center p-5">
+    <Typography variant="h5" textAlign={"center"}>
       Bienvenue {currentUser.prenom}
       <span className="text-uppercase"> {currentUser.nom}</span>
-    </div>
+    </Typography>
   );
 };
 

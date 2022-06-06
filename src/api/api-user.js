@@ -1,5 +1,12 @@
 import axios from "axios";
-import { urlUserById, urlUserProfile, urlUsers } from "../constantes";
+import {
+  urlDiscordDelete,
+  urlUserById,
+  urlUserDelete,
+  urlUserProfile,
+  urlUsers,
+  urlUserUpdate,
+} from "../constantes";
 import {
   authHeader,
   urlLogin,
@@ -36,5 +43,10 @@ export const getUserById = (id) => {
 };
 
 export const deleteUser = (id) => {
-  return axios.delete(urlUserById + id);
+  return axios.delete(urlUserDelete + id);
+};
+
+export const updateUser = (id, inputs) => {
+  const config = { headers: authHeader() };
+  return axios.put(urlUserUpdate + id, inputs, config);
 };

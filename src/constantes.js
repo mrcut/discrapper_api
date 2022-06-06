@@ -14,6 +14,9 @@ export const urlUserScript = urlApi + "user/script";
 
 export const urlUserProfile = urlApi + "user/profile";
 
+export const urlUserUpdate = urlApi + "user/update/";
+
+export const urlUserDelete = urlApi + "user/delete/";
 // =========================================
 
 export const urlMessages = urlApi + "messages";
@@ -29,6 +32,10 @@ export const urlDiscordCreate = urlApi + "discord/create";
 export const urlDiscords = urlApi + "discords";
 
 export const urlDiscordById = urlApi + "discord/";
+
+export const urlDiscordUpdate = urlApi + "discord/update/";
+
+export const urlDiscordDelete = urlApi + "discord/delete/";
 
 // =========================================
 

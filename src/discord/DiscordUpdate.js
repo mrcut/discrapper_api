@@ -1,30 +1,39 @@
-import { useState } from "react";
-import { updateDiscord } from "../api/api-discord";
+import { Link, Typography } from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
+import { Button, Container, Paper, TextField } from "@mui/material";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getDiscordById, updateDiscord } from "../api/api-discord";
 
-const DiscordUpdate = ({ discordNom, discordLien, discordChannel }) => {
-  const discordInput = {
-    discordNom: "",
-    discordLien: "",
-    discordChannel: "",
-  };
+const discordInput = {
+  discordNom: "",
+  discordLien: "",
+  discordChannel: "",
+};
 
+const DiscordUpdate = () => {
   const [discordForm, setDiscordForm] = useState({ ...discordInput });
 
-  const handleChange = (e) => {
-    setDiscordForm((actual) => {
-      return { ...actual, [e.target.name]: e.target.value };
-    });
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
+  const paperStyle = { padding: "50px 20px ", width: 600, margin: "20px auto" };
 
   const [message, setMessage] = useState("");
+
+  let { paramId } = useParams();
 
   const handleFocus = () => {
     if (message) {
       setMessage((actuel) => "");
     }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
+  const handleChange = (e) => {
+    setDiscordForm((actual) => {
+      return { ...actual, [e.target.name]: e.target.value };
+    });
   };
 
   const handleClick = () => {
@@ -39,65 +48,68 @@ const DiscordUpdate = ({ discordNom, discordLien, discordChannel }) => {
       });
   };
 
+  useEffect(() => {
+    getDiscordById(paramId).then((response) => {
+      const data = response.data;
+      setDiscordForm((actual) => data);
+    }, []);
+  });
+
   return (
     <div>
-      <div className="row">
-        <div className="col-4 offset-md-4">
+      <Typography align="center" variant="h3" children="Modifier un Discord" />
+      <Container>
+        <Paper elevation={3} style={paperStyle}>
           <form className="bg-light p-5" onSubmit={handleSubmit}>
             {message ? <p className="text-danger">{message}</p> : null}
-            <h4> Update Discord</h4>
+            <h1 style={{ color: "blue" }}>
+              <u>Infos Discord</u>{" "}
+            </h1>
 
-            <div className="mb-3">
-              <label className="form-label">DISCORD NAME</label>
-              <input
-                type="text"
-                name="discordNom"
-                value={discordForm.discordNom}
-                onChange={handleChange}
-                onFocus={handleFocus}
-                className="form-control"
-                id="discordNom"
-              />
-            </div>
+            <TextField
+              required
+              name="discordNom"
+              id="discordNom"
+              label="Discord Name"
+              variant="outlined"
+              fullWidth
+              onChange={handleChange}
+              onFocus={handleFocus}
+            />
 
-            <div className="mb-3">
-              <label className="form-label" required>
-                DISCORD LINK
-              </label>
-              <input
-                type="text"
-                name="discordLien"
-                value={discordForm.discordLien}
-                onChange={handleChange}
-                onFocus={handleFocus}
-                className="form-control"
-                id="discordLien"
-              />
-            </div>
+            <TextField
+              required
+              name="discordLien"
+              id="discordLien"
+              label="Discord Link"
+              variant="outlined"
+              fullWidth
+              onChange={handleChange}
+              onFocus={handleFocus}
+            />
 
-            <div className="mb-3">
-              <label className="form-label">DISCORD CHANNEL</label>
-              <input
-                type="text"
-                name="discordChannel"
-                value={discordForm.discordChannel}
-                onChange={handleChange}
-                onFocus={handleFocus}
-                className="form-control"
-                id="discordChannel"
-              />
-            </div>
+            <TextField
+              required
+              name="discordChannel"
+              id="discordChannel"
+              label="Discord Channel"
+              variant="outlined"
+              fullWidth
+              onChange={handleChange}
+              onFocus={handleFocus}
+            />
 
-            <button
-              type="submit"
-              className="btn btn-primary"
+            <Button
+              variant="contained"
+              endIcon={<SendIcon />}
               onClick={handleClick}
             >
-              Envoyer
-            </button>
+              Send
+            </Button>
           </form>
-        </div>
-      </div>
+        </Paper>
+      </Container>
+      <Link href="/discords">Back to List</Link>
     </div>
   );
 };

@@ -21,7 +21,7 @@ const DiscordList = () => {
 
   return (
     <div>
-      <h1>Liste des discords</h1>
+      <h1>Liste des Discords</h1>
 
       <div>
         <Button

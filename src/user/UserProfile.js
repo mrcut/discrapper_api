@@ -1,6 +1,9 @@
+import { Button, Container, Grid, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { editProfile } from "../api/api-user";
 import { getUserFromLocalStorage } from "../constantes";
+import SendIcon from "@mui/icons-material/Send";
 
 const UserProfile = ({ setCurrentUser }) => {
   const [userForm, setUserFrom] = useState({
@@ -9,6 +12,12 @@ const UserProfile = ({ setCurrentUser }) => {
     discord: "",
     tel: "",
   });
+
+  let { paramId } = useParams();
+
+  const redirect = useNavigate();
+
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     const user = getUserFromLocalStorage();
@@ -26,6 +35,12 @@ const UserProfile = ({ setCurrentUser }) => {
     setUserFrom((actual) => {
       return { ...actual, [e.target.name]: e.target.value };
     });
+  };
+
+  const handleFocus = () => {
+    if (message) {
+      setMessage((actuel) => "");
+    }
   };
 
   const handleClick = () => {
@@ -49,68 +64,85 @@ const UserProfile = ({ setCurrentUser }) => {
       });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return (
-    <div>
-      <h1 className="text-center"> Mes Infos </h1>
-      <div className="col-5 offset-md-4">
-        <div className="bg-light p-5">
-          <div className="mb-3">
-            <label className="form-label" required>
-              LAST NAME
-            </label>
-            <input
-              type="text"
-              name="nom"
-              value={userForm.nom}
-              onChange={handleChange}
-              className="form-control"
-              id="nom"
-            />
-          </div>
+    <Container sx={{ p: 5 }} maxWidth="sm">
+      <div>
+        <Typography component="h1" variant="h5">
+          Mes Infos
+        </Typography>
+        <form onSubmit={handleSubmit}>
+          {message ? <p className="text-danger">{message}</p> : null}
+          <Grid container sx={{ pt: 5 }} spacing={3}>
+            <Grid item xs={12}>
+              <TextField
+                id="nom"
+                name="nom"
+                label="LAST NAME"
+                value={userForm.nom}
+                variant="outlined"
+                fullWidth
+                onChange={handleChange}
+                onFocus={handleFocus}
+              />
+            </Grid>
 
-          <div className="mb-3">
-            <label className="form-label" required>
-              FIRST NAME
-            </label>
-            <input
-              type="text"
-              name="prenom"
-              value={userForm.prenom}
-              onChange={handleChange}
-              className="form-control"
-              id="prenom"
-            />
-          </div>
+            <Grid item xs={12}>
+              <TextField
+                id="prenom"
+                name="prenom"
+                label="FIRST NAME"
+                value={userForm.prenom}
+                variant="outlined"
+                onChange={handleChange}
+                onFocus={handleFocus}
+                fullWidth
+              />
+            </Grid>
 
-          <div className="mb-3">
-            <label className="form-label">PHONE NUMBER</label>
-            <input
-              type="text"
-              name="tel"
-              value={userForm.tel}
-              onChange={handleChange}
-              className="form-control"
-              id="tel"
-            />
-          </div>
+            <Grid item xs={12}>
+              <TextField
+                id="tel"
+                name="tel"
+                label="PHONE NUMBER"
+                value={userForm.tel}
+                variant="outlined"
+                fullWidth
+                onChange={handleChange}
+                onFocus={handleFocus}
+              />
+            </Grid>
 
-          <div className="mb-3">
-            <label className="form-label">DISCORD NICKNAME</label>
-            <input
-              type="text"
-              name="discord"
-              value={userForm.discord}
-              onChange={handleChange}
-              className="form-control"
-              id="discordName"
-            />
-          </div>
-          <button className="btn btn-warning mt-3" onClick={handleClick}>
-            Modifier
-          </button>
-        </div>
+            <Grid item xs={12}>
+              <TextField
+                id="discord"
+                name="discord"
+                label="DISCORD NICKNAME"
+                value={userForm.discord}
+                variant="outlined"
+                fullWidth
+                onChange={handleChange}
+                onFocus={handleFocus}
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <Button
+                variant="contained"
+                endIcon={<SendIcon />}
+                onClick={handleClick}
+                fullWidth
+              >
+                Send
+              </Button>
+            </Grid>
+          </Grid>
+        </form>
       </div>
-    </div>
+    </Container>
   );
 };
 

@@ -16,8 +16,8 @@ const UserDetail = () => {
         redirect("/users");
       })
       .catch((err) => {
-        const user = err.response.data.user;
-        console.log(user);
+        const error = err.response.data.user;
+        console.log(error);
       });
   };
 
@@ -45,18 +45,6 @@ const UserDetail = () => {
                 <p className="card-text">
                   Date d'Inscription : {user.utilisateurDate}
                 </p>
-                <ButtonGroup>
-                  <Button href="/discord/update" variant="contained">
-                    Update
-                  </Button>
-                  <Button
-                    variant="contained"
-                    onClick={handleDelete}
-                    color="error"
-                  >
-                    Delete
-                  </Button>
-                </ButtonGroup>
               </div>
             </div>
           </div>

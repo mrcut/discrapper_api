@@ -1,13 +1,15 @@
 import { useState } from "react";
 import {
+  Button,
   Container,
+  Grid,
   Link,
   MenuItem,
-  Paper,
   TextField,
   Typography,
 } from "@mui/material";
 import { createUser } from "../api/api-user";
+import SendIcon from "@mui/icons-material/Send";
 
 const userInput = {
   email: "",
@@ -21,8 +23,6 @@ const userInput = {
 
 const UserCreate = () => {
   const [userForm, setUserFrom] = useState({ ...userInput });
-
-  const paperStyle = { padding: "50px 20px ", width: 600, margin: "20px auto" };
 
   const [message, setMessage] = useState("");
 
@@ -79,125 +79,127 @@ const UserCreate = () => {
   ];
 
   return (
-    <div>
-      <Typography
-        align="center"
-        variant="h3"
-        children="Créer un nouveau Utilisateur"
-      />
-      <Container>
-        <Paper elevation={3} style={paperStyle}>
-          <form className="bg-light p-5" onSubmit={handleSubmit}>
-            {message ? <p className="text-danger">{message}</p> : null}
-            <h1 style={{ color: "blue" }}>
-              <u>Infos Utilisateur </u>
-            </h1>
+    <Container sx={{ p: 5 }} maxWidth="sm">
+      <div>
+        <Typography component="h1" variant="h5">
+          Create a New User
+        </Typography>
+        <form onSubmit={handleSubmit}>
+          {message ? <p className="text-danger">{message}</p> : null}
+          <Grid container sx={{ pt: 5 }} spacing={3}>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                id="email"
+                label="Email"
+                variant="outlined"
+                name="email"
+                autoComplete="email"
+                fullWidth
+                onChange={handleChange}
+                onFocus={handleFocus}
+              />
+            </Grid>
 
-            <TextField
-              required
-              id="email"
-              label="Email"
-              variant="outlined"
-              name="email"
-              autoComplete="email"
-              fullWidth
-              onChange={handleChange}
-              onFocus={handleFocus}
-            />
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                id="mdp"
+                name="mdp"
+                label="Password"
+                type="password"
+                variant="outlined"
+                autoComplete="mdp"
+                fullWidth
+                onChange={handleChange}
+                onFocus={handleFocus}
+              />
+            </Grid>
 
-            <TextField
-              required
-              id="mdp"
-              name="mdp"
-              label="Password"
-              type="password"
-              variant="outlined"
-              autoComplete="mdp"
-              fullWidth
-              onChange={handleChange}
-              onFocus={handleFocus}
-            />
-
-            <TextField
-              required
-              id="nom"
-              name="nom"
-              label="LAST NAME"
-              variant="outlined"
-              fullWidth
-              onChange={handleChange}
-              onFocus={handleFocus}
-            />
-
-            <TextField
-              required
-              id="prenom"
-              name="prenom"
-              label="FIRST NAME"
-              variant="outlined"
-              onChange={handleChange}
-              onFocus={handleFocus}
-              fullWidth
-            />
-
-            <TextField
-              id="tel"
-              name="tel"
-              label="PHONE NUMBER"
-              variant="outlined"
-              fullWidth
-              onChange={handleChange}
-              onFocus={handleFocus}
-            />
-
-            <TextField
-              id="discord"
-              name="discord"
-              label="DISCORD NICKNAME"
-              variant="outlined"
-              fullWidth
-              onChange={handleChange}
-              onFocus={handleFocus}
-            />
-
-            {/* <TextField
-                name="role"
-                id="role"
-                label="Role"
+            <Grid item xs={12}>
+              <TextField
+                required
+                id="nom"
+                name="nom"
+                label="LAST NAME"
                 variant="outlined"
                 fullWidth
                 onChange={handleChange}
                 onFocus={handleFocus}
-              /> */}
-            <TextField
-              name="role"
-              id="role"
-              select
-              label="Role"
-              value={role}
-              onChange={handleRole}
-              onFocus={handleFocus}
-              fullWidth
-            >
-              {roles.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
+              />
+            </Grid>
 
-            <button
-              type="submit"
-              className="btn btn-primary mt-3"
-              onClick={handleClick}
-            >
-              Envoyer
-            </button>
-          </form>
-        </Paper>
-      </Container>
-      <Link href="/users">Back to List</Link>
-    </div>
+            <Grid item xs={12}>
+              <TextField
+                required
+                id="prenom"
+                name="prenom"
+                label="FIRST NAME"
+                variant="outlined"
+                onChange={handleChange}
+                onFocus={handleFocus}
+                fullWidth
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                id="tel"
+                name="tel"
+                label="PHONE NUMBER"
+                variant="outlined"
+                fullWidth
+                onChange={handleChange}
+                onFocus={handleFocus}
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                id="discord"
+                name="discord"
+                label="DISCORD NICKNAME"
+                variant="outlined"
+                fullWidth
+                onChange={handleChange}
+                onFocus={handleFocus}
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                name="role"
+                id="role"
+                select
+                label="Role"
+                value={role}
+                onChange={handleRole}
+                onFocus={handleFocus}
+                fullWidth
+              >
+                {roles.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Grid>
+            <Grid item xs={12}>
+              <Button
+                variant="contained"
+                endIcon={<SendIcon />}
+                onClick={handleClick}
+                fullWidth
+              >
+                Send
+              </Button>
+            </Grid>
+          </Grid>
+        </form>
+
+        <Link href="/users">Back to List</Link>
+      </div>
+    </Container>
   );
 };
 

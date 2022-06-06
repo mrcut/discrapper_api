@@ -18,21 +18,55 @@ import {
   settings,
   settingsAdmin,
 } from "./NavbarConst";
-import { useNavigate } from "react-router-dom";
+
 import { useEffect, useState } from "react";
 
-const Navbar = ({ user }) => {
+import YourLogo from "../assets/Discrapper.svg";
+import { Icon, styled } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { executeScript } from "../api/api-user";
+
+export const Logo = () => (
+  <Icon>
+    <img alt="logo" src={YourLogo} height={25} width={25} />
+  </Icon>
+);
+
+const Header = styled(AppBar)`
+  background: #111111;
+`;
+
+const Navbar = ({ user, logout }) => {
   const navigate = useNavigate();
 
+  // const logout = () => {
+  //   localStorage.removeItem(userKey);
+  //   setUser((actual) => null);
+  // };
+
   const handleClick = (item) => {
-    console.log("compteur");
-    if (item.id === 0) {
-      alert("Nope");
-      console.log("compteur2");
-    } else {
-      alert("yep");
-      console.log("compteur3");
+    if (item.id === 1) {
+      handleScript();
     }
+    if (item.id === 4) {
+      logout();
+      navigate("/");
+    } else {
+      navigate(item.route);
+    }
+  };
+
+  const handleScript = () => {
+    executeScript()
+      .then((response) => {
+        const script = response.data;
+        alert(script);
+        console.log(script);
+      })
+      .catch((err) => {
+        const message = err.response.data.message;
+        alert(message);
+      });
   };
 
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -65,10 +99,10 @@ const Navbar = ({ user }) => {
   console.log(menu);
 
   return (
-    <AppBar position="static">
+    <Header position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <Logo sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -149,7 +183,7 @@ const Navbar = ({ user }) => {
             {nav.map((item, index) => (
               <Button
                 key={item.id}
-                onClick={handleClick}
+                onClick={() => handleClick(item)}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
                 {item.icon}
@@ -181,7 +215,7 @@ const Navbar = ({ user }) => {
               onClose={handleCloseUserMenu}
             >
               {menu.map((item, index) => (
-                <MenuItem key={item.id} onClick={handleClick}>
+                <MenuItem key={item.id} onClick={() => handleClick(item)}>
                   <Typography textAlign="center">
                     {item.icon}
                     {item.label}
@@ -192,7 +226,7 @@ const Navbar = ({ user }) => {
           </Box>
         </Toolbar>
       </Container>
-    </AppBar>
+    </Header>
   );
 };
 

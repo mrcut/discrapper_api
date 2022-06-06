@@ -1,46 +1,126 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { getAllUsers } from "../api/api-user";
+import { Link, useParams } from "react-router-dom";
+import { deleteUser, getAllUsers } from "../api/api-user";
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Container,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
+import { Visibility, Delete, Refresh } from "@mui/icons-material";
 
 const UserList = () => {
-  const [liste, setListe] = useState([]);
+  const [users, setUsers] = useState([]);
+
+  let { paramId } = useParams();
 
   useEffect(() => {
     getAllUsers()
       .then((response) => {
-        const users = response.data;
-        setListe((actual) => users);
-        console.log(users);
+        const data = response.data;
+        setUsers((actual) => data);
+        console.log(data);
+      })
+      .catch((err) => {
+        const error = err.response.data.error;
+        console.log(error);
+      });
+  }, []);
+
+  const handleDelete = () => {
+    deleteUser(paramId)
+      .then((response) => {
+        console.log("ok");
       })
       .catch((err) => {
         const user = err.response.data.user;
         console.log(user);
+        console.log(paramId);
       });
-  }, []);
+  };
 
   return (
-    <div>
-      <h1>Liste des Utilisateurs</h1>
-      <ul className="ul-menu">
-        {liste.map((user) => (
-          <li key={user.utilisateurId} className="li-button">
-            <div>
-              <p className="card-title">
-                <Link to={"/user/" + user.utilisateurId}>
-                  {user.utilisateurEmail}
-                </Link>
-              </p>
-              <p>{user.utilisateurNom}</p>
-              <p>{user.utilisateurPrenom}</p>
-              <p>{user.utilisateurTel}</p>
-              <p>{user.utilisateurDiscord}</p>
-              <p>{user.utilisateurRole}</p>
-              <p>{user.utilisateurDate}</p>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Container sx={{ p: 7 }} maxWidth="lg">
+      <Paper sx={{ p: 4 }}>
+        <Box display="flex">
+          <Box flexGrow={1}>
+            <Typography
+              component="h2"
+              variant="h6"
+              color="primary"
+              gutterBottom
+            >
+              USERS
+            </Typography>
+          </Box>
+          <Box>
+            <Link to="/user/create">
+              <Button variant="contained" color="primary">
+                CREATE
+              </Button>
+            </Link>
+          </Box>
+        </Box>
+        <TableContainer component={Paper}>
+          <Table aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Email</TableCell>
+                <TableCell>Nom</TableCell>
+                <TableCell>Prenom</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {users.map((user) => (
+                <TableRow>
+                  <TableCell>
+                    <Link to={"/user/" + user.utilisateurId}>
+                      {user.utilisateurEmail}
+                    </Link>
+                  </TableCell>
+                  <TableCell>{user.utilisateurNom}</TableCell>
+                  <TableCell>{user.utilisateurPrenom}</TableCell>
+                  <TableCell align="center">
+                    <ButtonGroup>
+                      <Button
+                        endIcon={<Visibility />}
+                        href={"/user/" + user.utilisateurId}
+                        variant="contained"
+                      >
+                        Details
+                      </Button>
+                      <Button
+                        href={"/user/update/" + user.utilisateurId}
+                        variant="contained"
+                        endIcon={<Refresh />}
+                      >
+                        Update
+                      </Button>
+                      <Button
+                        variant="contained"
+                        onClick={handleDelete}
+                        color="error"
+                        endIcon={<Delete />}
+                      >
+                        Delete
+                      </Button>
+                    </ButtonGroup>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Paper>
+    </Container>
   );
 };
 

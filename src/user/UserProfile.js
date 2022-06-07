@@ -1,6 +1,6 @@
 import { Button, Container, Grid, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { editProfile } from "../api/api-user";
 import { getUserFromLocalStorage } from "../constantes";
 import SendIcon from "@mui/icons-material/Send";
@@ -12,8 +12,6 @@ const UserProfile = ({ setCurrentUser }) => {
     discord: "",
     tel: "",
   });
-
-  let { paramId } = useParams();
 
   const redirect = useNavigate();
 
@@ -58,9 +56,12 @@ const UserProfile = ({ setCurrentUser }) => {
         };
         localStorage.setItem("user", JSON.stringify(user));
         setCurrentUser((actual) => user);
+        setMessage((actual) => "Modifs Effectué ");
+        console.log(message);
       })
       .catch((err) => {
         console.log(err.response);
+        setMessage(err.response);
       });
   };
 

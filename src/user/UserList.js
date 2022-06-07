@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { deleteUser, getAllUsers } from "../api/api-user";
 import {
   Box,
@@ -20,8 +20,6 @@ import { Visibility, Delete, Refresh } from "@mui/icons-material";
 const UserList = () => {
   const [users, setUsers] = useState([]);
 
-  let { paramId } = useParams();
-
   useEffect(() => {
     getAllUsers()
       .then((response) => {
@@ -35,15 +33,30 @@ const UserList = () => {
       });
   }, []);
 
-  const handleDelete = () => {
-    deleteUser(paramId)
+  // const handleDelete = () => {
+  //   deleteUser()
+  //     .then((response) => {
+  //       console.log("ok");
+  //     })
+  //     .catch((err) => {
+  //       const user = err.response.data.user;
+  //       console.log(user);
+  //     });
+  // };
+
+  const handleDelete = (id) => {
+    deleteUser(id)
       .then((response) => {
         console.log("ok");
+        // rajouter confirmation
+
+        const usersTmp = users.filter((user) => user.utilisateurId !== id);
+        setUsers((actual) => usersTmp);
       })
       .catch((err) => {
         const user = err.response.data.user;
         console.log(user);
-        console.log(paramId);
+        console.log(id);
       });
   };
 
@@ -80,7 +93,7 @@ const UserList = () => {
             </TableHead>
             <TableBody>
               {users.map((user) => (
-                <TableRow>
+                <TableRow key={"user" + user.utilisateurId}>
                   <TableCell>
                     <Link to={"/user/" + user.utilisateurId}>
                       {user.utilisateurEmail}
@@ -106,7 +119,7 @@ const UserList = () => {
                       </Button>
                       <Button
                         variant="contained"
-                        onClick={handleDelete}
+                        onClick={() => handleDelete(user.utilisateurId)}
                         color="error"
                         endIcon={<Delete />}
                       >

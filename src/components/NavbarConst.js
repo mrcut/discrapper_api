@@ -9,73 +9,30 @@ import {
   QuestionAnswer,
 } from "@mui/icons-material";
 
-export const navbarUser = (labelValue) => [
-  {
-    id: 0,
-    icon: <QuestionAnswer />,
-    label: labelValue,
-    route: "faq",
-  },
-];
+export const generateItem = (id, icon, label, route) => {
+  return {
+    id,
+    icon,
+    label,
+    route,
+  };
+};
 
+export const navbarUser = [generateItem(0, <QuestionAnswer />, "FAQ", "faq")];
 export const navbarEmploye = [
-  {
-    id: 0,
-    icon: <ChatBubble />,
-    label: "Messages",
-    route: "messages",
-  },
-  {
-    id: 1,
-    icon: <BarChart />,
-    label: "Statistiques",
-    route: "stats",
-  },
+  generateItem(0, <ChatBubble />, "Messages", "messages"),
+  generateItem(1, <BarChart />, "Statistiques", "stats"),
 ];
 
 export const settings = [
-  {
-    id: 0,
-    icon: <AccountBox />,
-    label: "Profile",
-    route: "/user/profile",
-  },
-  {
-    id: 1,
-    icon: <Logout />,
-    label: "Logout",
-    route: "/",
-  },
+  generateItem(0, <AccountBox />, "Profile", "/user/profile"),
+  generateItem(1, <Logout />, "Logout", "/"),
 ];
 
 export const settingsAdmin = [
-  {
-    id: 0,
-    icon: <AccountBox />,
-    label: "Profile",
-    route: "/user/profile",
-  },
-  {
-    id: 1,
-    icon: <Javascript />,
-    label: "Executer le Script",
-  },
-  {
-    id: 2,
-    icon: <PersonAdd />,
-    label: "Ajouter un User",
-    route: "user/create",
-  },
-  {
-    id: 3,
-    icon: <Add />,
-    label: "Ajouter un Discord",
-    route: "discord/create",
-  },
-  {
-    id: 4,
-    icon: <Logout />,
-    label: "Logout",
-    route: "/",
-  },
+  generateItem(0, <AccountBox />, "Profile", "/user/profile"),
+  generateItem(1, <Javascript />, "Executer le Script", null),
+  generateItem(2, <PersonAdd />, "Ajouter un User", "user/create"),
+  generateItem(3, <Add />, "Ajouter un Discord", "discord/create"),
+  generateItem(4, <Logout />, "Logout", "/"),
 ];

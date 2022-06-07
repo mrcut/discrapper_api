@@ -55,12 +55,10 @@ const UserCreate = () => {
     createUser(userForm)
       .then((response) => {
         const user = response.data;
-        console.log(user);
+        setMessage((actual) => "L'Utilisateur a bien été ajouté");
       })
       .catch((err) => {
         setMessage((actual) => err.response.data.message);
-        console.log(userForm);
-        console.log(role);
       });
   };
 

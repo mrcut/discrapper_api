@@ -56,3 +56,7 @@ export const authHeader = () => {
     return {};
   }
 };
+
+export const execScript = "Executer le Script";
+
+export const dc = "Logout";

@@ -25,6 +25,7 @@ import YourLogo from "../assets/Discrapper.svg";
 import { Icon, styled } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { executeScript } from "../api/api-user";
+import { dc, execScript } from "../constantes";
 
 export const Logo = () => (
   <Icon>
@@ -45,10 +46,10 @@ const Navbar = ({ user, logout }) => {
   // };
 
   const handleClick = (item) => {
-    if (item.id === 1) {
+    if (item.label === execScript) {
       handleScript();
     }
-    if (item.id === 4) {
+    if (item.label === dc) {
       logout();
       navigate("/");
     } else {
@@ -71,7 +72,7 @@ const Navbar = ({ user, logout }) => {
 
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const [nav, setNav] = useState(navbarUser("faaaq"));
+  const [nav, setNav] = useState(navbarUser);
   const [menu, setMenu] = useState(settings);
 
   const handleOpenNavMenu = (event) => {
@@ -93,6 +94,10 @@ const Navbar = ({ user, logout }) => {
     if (user && (user.role === "admin" || user.role === "employe")) {
       setNav((actual) => navbarEmploye);
       setMenu((actual) => settingsAdmin);
+    }
+    if (user === null) {
+      setNav(navbarUser);
+      setMenu(settings);
     }
   }, [user]);
   console.log(nav);

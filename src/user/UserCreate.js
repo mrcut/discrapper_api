@@ -54,7 +54,6 @@ const UserCreate = () => {
   const handleClick = () => {
     createUser(userForm)
       .then((response) => {
-        const user = response.data;
         setMessage((actual) => "L'Utilisateur a bien été ajouté");
       })
       .catch((err) => {

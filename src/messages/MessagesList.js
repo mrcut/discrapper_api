@@ -1,4 +1,5 @@
-import { Button, Card, CardActions, CardHeader } from "@mui/material";
+import { Face } from "@mui/icons-material";
+import { Button, Card, Chip } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getAllCategories, getMessages } from "../api/api-messages";
@@ -30,7 +31,6 @@ const MessagesList = () => {
       .catch((err) => {
         const message = err.response.data.message;
         console.log(message);
-        // setMessage((actual) => err.response.data.message);
       });
   }, []);
 
@@ -39,9 +39,15 @@ const MessagesList = () => {
       <div>
         {categorie.map((categorie) => (
           <div key={categorie.categorieId}>
-            <Button onClick={() => setIdCategorie(categorie.categorieId)}>
+            <Chip
+              icon={<Face />}
+              onClick={() => setIdCategorie(categorie.categorieId)}
+              label={categorie.categorieNom}
+              // if label
+            />
+            {/* <Button onClick={() => setIdCategorie(categorie.categorieId)}>
               {categorie.categorieNom}
-            </Button>
+            </Button> */}
           </div>
         ))}
       </div>

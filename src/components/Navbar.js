@@ -40,11 +40,6 @@ const Header = styled(AppBar)`
 const Navbar = ({ user, logout }) => {
   const navigate = useNavigate();
 
-  // const logout = () => {
-  //   localStorage.removeItem(userKey);
-  //   setUser((actual) => null);
-  // };
-
   const handleClick = (item) => {
     if (item.label === execScript) {
       handleScript();

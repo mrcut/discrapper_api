@@ -15,7 +15,6 @@ import DiscordUpdate from "../discord/DiscordUpdate";
 import { useEffect } from "react";
 import { getUserFromLocalStorage } from "../constantes";
 import Statistiques from "../stats/Statistiques";
-import Logout from "../home/Logout";
 import NotFound from "./NotFound";
 import UserUpdate from "../user/UserUpdate";
 

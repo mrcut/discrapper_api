@@ -1,32 +1,18 @@
-import { Button, ButtonGroup } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { deleteUser, getUserById } from "../api/api-user";
+import { useParams } from "react-router-dom";
+import { getUserById } from "../api/api-user";
 
 const UserDetail = () => {
   const [user, setUser] = useState({});
 
   let { paramId } = useParams();
 
-  const redirect = useNavigate();
-
-  const handleDelete = () => {
-    deleteUser(paramId)
-      .then((response) => {
-        redirect("/users");
-      })
-      .catch((err) => {
-        const error = err.response.data.user;
-        console.log(error);
-      });
-  };
-
   useEffect(() => {
     getUserById(paramId).then((response) => {
       const data = response.data;
       setUser((actual) => data);
     });
-  }, []);
+  }, [paramId]);
 
   return (
     <div className="row">

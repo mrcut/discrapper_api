@@ -33,16 +33,6 @@ const UserList = () => {
       });
   }, []);
 
-  // const handleDelete = () => {
-  //   deleteUser()
-  //     .then((response) => {
-  //       console.log("ok");
-  //     })
-  //     .catch((err) => {
-  //       const user = err.response.data.user;
-  //       console.log(user);
-  //     });
-  // };
 
   const handleDelete = (id) => {
     deleteUser(id)

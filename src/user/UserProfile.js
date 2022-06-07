@@ -1,6 +1,5 @@
 import { Button, Container, Grid, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { editProfile } from "../api/api-user";
 import { getUserFromLocalStorage } from "../constantes";
 import SendIcon from "@mui/icons-material/Send";
@@ -12,8 +11,6 @@ const UserProfile = ({ setCurrentUser }) => {
     discord: "",
     tel: "",
   });
-
-  const redirect = useNavigate();
 
   const [message, setMessage] = useState("");
 

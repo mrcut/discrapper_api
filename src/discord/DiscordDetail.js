@@ -1,33 +1,18 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-
-import { Button, ButtonGroup } from "@mui/material";
-import { deleteDiscord, getDiscordById } from "../api/api-discord";
+import { useParams } from "react-router-dom";
+import { getDiscordById } from "../api/api-discord";
 
 const DiscordDetail = () => {
   const [discord, setDiscord] = useState({});
 
   let { paramId } = useParams();
 
-  const redirect = useNavigate();
-
-  const handleDelete = () => {
-    deleteDiscord(paramId)
-      .then((response) => {
-        redirect("/discords");
-      })
-      .catch((err) => {
-        const discord = err.response.data.discord;
-        console.log(discord);
-      });
-  };
-
   useEffect(() => {
     getDiscordById(paramId).then((response) => {
       const data = response.data;
       setDiscord((actual) => data);
     });
-  }, []);
+  }, [paramId]);
 
   return (
     <div className="row">
@@ -48,21 +33,6 @@ const DiscordDetail = () => {
                 <p className="card-text">
                   Lien du Discord : {discord.discordLien}
                 </p>
-                <ButtonGroup>
-                  <Button
-                    href={"/discord/update/" + discord.discordId}
-                    variant="contained"
-                  >
-                    Update
-                  </Button>
-                  <Button
-                    variant="contained"
-                    onClick={handleDelete}
-                    color="error"
-                  >
-                    Delete
-                  </Button>
-                </ButtonGroup>
               </div>
             </div>
           </div>

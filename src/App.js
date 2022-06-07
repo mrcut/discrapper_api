@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import Header from "./components/Header";
-import MenuAppBar from "./components/Header";
 import Navbar from "./components/Navbar";
 import RoutesCustom from "./components/RoutesCustom";
 import { getUserFromLocalStorage, userKey } from "./constantes";
@@ -23,7 +21,6 @@ function App() {
   return (
     <div className="App">
       <Navbar user={user} setUser={setUser} logout={logout} />
-      {/* <Header /> */}
       <RoutesCustom user={user} setUser={setUser} />
     </div>
   );

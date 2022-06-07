@@ -3,7 +3,9 @@ import {
   authHeader,
   urlDiscordById,
   urlDiscordCreate,
+  urlDiscordDelete,
   urlDiscords,
+  urlDiscordUpdate,
 } from "../constantes";
 
 export const createDiscord = (inputs) => {
@@ -12,7 +14,7 @@ export const createDiscord = (inputs) => {
 };
 
 export const updateDiscord = (id) => {
-  return axios.put(urlDiscordById + id);
+  return axios.put(urlDiscordUpdate + id);
 };
 
 export const getAllDiscords = () => {
@@ -21,7 +23,7 @@ export const getAllDiscords = () => {
 };
 
 export const deleteDiscord = (id) => {
-  return axios.delete(urlDiscordById + id);
+  return axios.delete(urlDiscordDelete + id);
 };
 
 export const getDiscordById = (id) => {

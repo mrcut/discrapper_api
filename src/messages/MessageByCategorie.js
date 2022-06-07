@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { getMessageByCategorie } from "../api/api-messages";
 import { Link } from "react-router-dom";
+import { Chip } from "@mui/material";
+import { Face } from "@mui/icons-material";
 
 const MessageByCategorie = ({ id }) => {
   const [categorie, setCategorie] = useState([]);
-  // const [idCategorie, setIdCategorie] = useState(0);
 
   useEffect(() => {
     getMessageByCategorie(id)
@@ -20,7 +21,10 @@ const MessageByCategorie = ({ id }) => {
     <div>
       <h1>Liste des Messages</h1>
 
-      <h4>{categorie.categorieNom}</h4>
+      <Chip icon={<Face />} label="With Icon">
+        {categorie.categorieNom}
+      </Chip>
+
       <ul className="ul-menu">
         {categorie.map((message) => (
           <li key={message.messageId} className="li-button">
@@ -30,8 +34,7 @@ const MessageByCategorie = ({ id }) => {
                   {message.messageContent}
                 </Link>
               </p>
-              <p>Id : {message.messageId}</p>
-              {/*<Button>{message.categorieId.categorieNom}</Button>*/}
+              <Chip>Id : {message.messageId}</Chip>
             </div>
           </li>
         ))}

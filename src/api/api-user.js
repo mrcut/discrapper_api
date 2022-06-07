@@ -1,6 +1,5 @@
 import axios from "axios";
 import {
-  urlDiscordDelete,
   urlUserById,
   urlUserDelete,
   urlUserProfile,

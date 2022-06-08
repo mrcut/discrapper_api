@@ -17,6 +17,7 @@ import { getUserFromLocalStorage } from "../constantes";
 import Statistiques from "../stats/Statistiques";
 import NotFound from "./NotFound";
 import UserUpdate from "../user/UserUpdate";
+import MessageByCategorie from "../messages/MessageByCategorie";
 
 const RoutesCustom = ({ user, setUser, logout }) => {
   useEffect(() => {

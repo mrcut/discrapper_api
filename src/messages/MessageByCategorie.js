@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { getMessageByCategorie } from "../api/api-messages";
+import { deleteMessage, getMessageByCategorie } from "../api/api-messages";
 import { Link } from "react-router-dom";
-import { Chip } from "@mui/material";
-import { Face } from "@mui/icons-material";
+import { Button, ButtonGroup, Chip, TableCell, TableRow } from "@mui/material";
+import { Delete, Face, Visibility } from "@mui/icons-material";
 
 const MessageByCategorie = ({ id }) => {
   const [categorie, setCategorie] = useState([]);
@@ -11,35 +11,69 @@ const MessageByCategorie = ({ id }) => {
     getMessageByCategorie(id)
       .then((response) => {
         setCategorie((actual) => response.data);
+        console.log(id);
       })
       .catch((err) => {
+        console.log(id);
+
         console.log(err.response.data.setCategorie);
       });
   }, [id]);
 
+  // const handleDelete = (id) => {
+  //   deleteMessage(id)
+  //     .then((response) => {
+  //       console.log("ok");
+  //       // rajouter confirmation
+
+  //       const msgTmp = liste.filter((message) => message.messageId !== id);
+  //       setListe((actual) => msgTmp);
+  //     })
+  //     .catch((err) => {
+  //       const error = err.response.data.error;
+  //       console.log(error);
+  //       console.log(id);
+  //     });
+  // };
+
   return (
-    <div>
-      <h1>Liste des Messages</h1>
+    // <div>
 
-      <Chip icon={<Face />} label="With Icon">
-        {categorie.categorieNom}
-      </Chip>
+    categorie.map((message) => (
+      <TableRow key={"msg" + message.messageId}>
+        {categorie ? (
+          <>
+            <TableCell>
+              <Link to={"/message/" + message.messageId}>
+                {message.messageContent}
+              </Link>
+            </TableCell>
+            <TableCell>{message.categorieId.categorieNom}</TableCell>
 
-      <ul className="ul-menu">
-        {categorie.map((message) => (
-          <li key={message.messageId} className="li-button">
-            <div>
-              <p className="card-title">
-                <Link to={"/message/" + message.messageId}>
-                  {message.messageContent}
-                </Link>
-              </p>
-              <Chip>Id : {message.messageId}</Chip>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
+            <TableCell align="center">
+              <ButtonGroup>
+                <Button
+                  endIcon={<Visibility />}
+                  href={"/message/" + message.messageId}
+                  variant="contained"
+                >
+                  Details
+                </Button>
+
+                <Button
+                  variant="contained"
+                  // onClick={() => handleDelete(message.messageId)}
+                  color="error"
+                  endIcon={<Delete />}
+                >
+                  Delete
+                </Button>
+              </ButtonGroup>
+            </TableCell>
+          </>
+        ) : null}
+      </TableRow>
+    ))
   );
 };
 

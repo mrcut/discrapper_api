@@ -1,12 +1,4 @@
-import {
-  CurrencyBitcoin,
-  Delete,
-  Face,
-  Favorite,
-  Help,
-  Public,
-  Visibility,
-} from "@mui/icons-material";
+import { Delete, Face, Visibility } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -28,6 +20,7 @@ import { Link } from "react-router-dom";
 import {
   deleteMessage,
   getAllCategories,
+  getMessageByCategorie,
   getMessages,
 } from "../api/api-messages";
 import MessageByCategorie from "./MessageByCategorie";
@@ -39,12 +32,19 @@ const MessagesList = () => {
   const [idCategorie, setIdCategorie] = useState(0);
   const [chipData, setChipData] = useState([]);
 
+  function handleCategoryChange(e) {
+    setIdCategorie(e.target.value);
+    console.log("categorie", idCategorie);
+  }
+
   useEffect(() => {
     getAllCategories()
       .then((response) => {
         setCategorie((actual) => response.data);
+        console.log("categorie", categorie);
       })
       .catch((err) => {
+        console.log("categorie", categorie);
         console.log(err.response.data.categorie);
       });
   }, []);
@@ -55,6 +55,7 @@ const MessagesList = () => {
         const messages = response.data;
         setListe((actual) => messages);
         console.log(messages);
+        console.log("categorie", categorie);
       })
       .catch((err) => {
         const message = err.response.data.message;
@@ -63,12 +64,14 @@ const MessagesList = () => {
   }, []);
 
   const handleCategorie = (id, nom) => {
-    setIdCategorie(categorie.categorieId);
+    // setIdCategorie(categorie.categorieId);
+    console.log(id);
     setChipData((actual) => ({
       key: id,
       label: nom,
       color: "primary",
     }));
+    getCategorie(idCategorie);
   };
 
   const handleDelete = (id) => {
@@ -87,6 +90,33 @@ const MessagesList = () => {
       });
   };
 
+  const getCategorie = (id) => {
+    getMessageByCategorie(id)
+      .then((response) => {
+        setListe((actual) => response.data);
+        console.log(id);
+        console.log(liste);
+      })
+      .catch((err) => {
+        console.log(id);
+
+        console.log(err.response.data.setCategorie);
+      });
+  };
+
+  // useEffect(() => {
+  //   getMessageByCategorie(id)
+  //     .then((response) => {
+  //       setListe((actual) => response.data);
+  //       console.log(id);
+  //     })
+  //     .catch((err) => {
+  //       console.log(id);
+
+  //       console.log(err.response.data.setCategorie);
+  //     });
+  // }, [id]);
+
   return (
     <Container sx={{ p: 7 }} maxWidth="lg">
       <Paper sx={{ p: 4 }}>
@@ -103,28 +133,17 @@ const MessagesList = () => {
           </Box>
           <div>
             {categorie.map((categorie) => (
-              <ListItem key={categorie.categorieId}>
-                <Chip
-                  icon={<Face />}
-                  onClick={() =>
-                    handleCategorie(
-                      categorie.categorieId,
-                      categorie.categorieNom
-                    )
-                  }
-                  label={categorie.categorieNom}
-                  // if label
-                />
-              </ListItem>
+              <Chip
+                key={categorie.categorieId}
+                icon={<Face />}
+                onChange={handleCategoryChange}
+                onClick={() =>
+                  handleCategorie(categorie.categorieId, categorie.categorieNom)
+                }
+                label={categorie.categorieNom}
+              />
             ))}
           </div>
-          {/* <Box>
-            <Link to="/user/create">
-              <Button variant="contained" color="primary">
-                CREATE
-              </Button>
-            </Link>
-          </Box> */}
         </Box>
         <TableContainer component={Paper}>
           <Table aria-label="simple table">

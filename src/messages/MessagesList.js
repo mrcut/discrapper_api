@@ -1,8 +1,35 @@
-import { Face } from "@mui/icons-material";
-import { Button, Card, Chip } from "@mui/material";
+import {
+  CurrencyBitcoin,
+  Delete,
+  Face,
+  Favorite,
+  Help,
+  Public,
+  Visibility,
+} from "@mui/icons-material";
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Chip,
+  Container,
+  ListItem,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getAllCategories, getMessages } from "../api/api-messages";
+import {
+  deleteMessage,
+  getAllCategories,
+  getMessages,
+} from "../api/api-messages";
 import MessageByCategorie from "./MessageByCategorie";
 
 const MessagesList = () => {
@@ -10,6 +37,7 @@ const MessagesList = () => {
   const [categorie, setCategorie] = useState([]);
 
   const [idCategorie, setIdCategorie] = useState(0);
+  const [chipData, setChipData] = useState([]);
 
   useEffect(() => {
     getAllCategories()
@@ -34,48 +62,121 @@ const MessagesList = () => {
       });
   }, []);
 
-  return (
-    <div>
-      <div>
-        {categorie.map((categorie) => (
-          <div key={categorie.categorieId}>
-            <Chip
-              icon={<Face />}
-              onClick={() => setIdCategorie(categorie.categorieId)}
-              label={categorie.categorieNom}
-              // if label
-            />
-            {/* <Button onClick={() => setIdCategorie(categorie.categorieId)}>
-              {categorie.categorieNom}
-            </Button> */}
-          </div>
-        ))}
-      </div>
+  const handleCategorie = (id, nom) => {
+    setIdCategorie(categorie.categorieId);
+    setChipData((actual) => ({
+      key: id,
+      label: nom,
+      color: "primary",
+    }));
+  };
 
-      <ul className="ul-menu">
-        {idCategorie !== 0 ? (
-          <MessageByCategorie id={idCategorie} />
-        ) : (
-          <>
-            {liste.map((message) => (
-              <li key={message.messageId}>
-                <div>
-                  <Card>
-                    <p className="card-title">
-                      <Link to={"/message/" + message.messageId}>
-                        {message.messageContent}
-                      </Link>
-                    </p>
-                    <p>Id : {message.messageId}</p>
-                    <Button>{message.categorieId.categorieNom}</Button>
-                  </Card>
-                </div>
-              </li>
+  const handleDelete = (id) => {
+    deleteMessage(id)
+      .then((response) => {
+        console.log("ok");
+        // rajouter confirmation
+
+        const msgTmp = liste.filter((message) => message.messageId !== id);
+        setListe((actual) => msgTmp);
+      })
+      .catch((err) => {
+        const error = err.response.data.error;
+        console.log(error);
+        console.log(id);
+      });
+  };
+
+  return (
+    <Container sx={{ p: 7 }} maxWidth="lg">
+      <Paper sx={{ p: 4 }}>
+        <Box display="flex">
+          <Box flexGrow={1}>
+            <Typography
+              component="h2"
+              variant="h6"
+              color="primary"
+              gutterBottom
+            >
+              Messages
+            </Typography>
+          </Box>
+          <div>
+            {categorie.map((categorie) => (
+              <ListItem key={categorie.categorieId}>
+                <Chip
+                  icon={<Face />}
+                  onClick={() =>
+                    handleCategorie(
+                      categorie.categorieId,
+                      categorie.categorieNom
+                    )
+                  }
+                  label={categorie.categorieNom}
+                  // if label
+                />
+              </ListItem>
             ))}
-          </>
-        )}
-      </ul>
-    </div>
+          </div>
+          {/* <Box>
+            <Link to="/user/create">
+              <Button variant="contained" color="primary">
+                CREATE
+              </Button>
+            </Link>
+          </Box> */}
+        </Box>
+        <TableContainer component={Paper}>
+          <Table aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Message</TableCell>
+                <TableCell>Catégorie</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {idCategorie !== 0 ? (
+                <MessageByCategorie id={idCategorie} />
+              ) : (
+                <>
+                  {liste.map((message) => (
+                    <TableRow key={"msg" + message.messageId}>
+                      <TableCell>
+                        <Link to={"/message/" + message.messageId}>
+                          {message.messageContent}
+                        </Link>
+                      </TableCell>
+                      <TableCell>{message.categorieId.categorieNom}</TableCell>
+
+                      <TableCell align="center">
+                        <ButtonGroup>
+                          <Button
+                            endIcon={<Visibility />}
+                            href={"/message/" + message.messageId}
+                            variant="contained"
+                          >
+                            Details
+                          </Button>
+
+                          <Button
+                            variant="contained"
+                            onClick={() => handleDelete(message.messageId)}
+                            color="error"
+                            endIcon={<Delete />}
+                          >
+                            Delete
+                          </Button>
+                        </ButtonGroup>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Paper>
+    </Container>
   );
 };
 

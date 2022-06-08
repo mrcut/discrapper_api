@@ -95,8 +95,6 @@ const Navbar = ({ user, logout }) => {
       setMenu(settings);
     }
   }, [user]);
-  console.log(nav);
-  console.log(menu);
 
   return (
     <Header position="static">

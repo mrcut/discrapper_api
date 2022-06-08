@@ -1,70 +1,80 @@
+import {
+  Container,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
+import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { Button, ButtonGroup } from "@mui/material";
-import { deleteMessage, getMessageById } from "../api/api-messages";
+import { useParams } from "react-router-dom";
+import { getMessageById } from "../api/api-messages";
 
 const MessageDetail = () => {
-  const [message, setMessage] = useState({});
+  const [message, setMessage] = useState(null);
 
   let { paramId } = useParams();
 
-  const redirect = useNavigate();
-
-  const handleDelete = () => {
-    deleteMessage(paramId)
+  useEffect(() => {
+    console.log("lancement du useEffect");
+    getMessageById(paramId)
       .then((response) => {
-        redirect("/messages");
+        const data = response.data;
+        console.log(data);
+        setMessage((actual) => data);
       })
       .catch((err) => {
-        const message = err.response.data.message;
-        console.log(message);
+        // const error = err.response.data.error;
+        // console.log(error);
+        console.log("Erreur");
       });
-  };
-
-  useEffect(() => {
-    getMessageById(paramId).then((response) => {
-      const data = response.data;
-      setMessage((actual) => data);
-    });
-  }, []);
+  }, [paramId]);
 
   return (
-    <div className="row">
-      <div className="col-8">
-        <div className="card mb-3">
-          <div className="row g-0">
-            <div className="col-md-8">
-              <div className="card-body">
-                <h5 className="card-title">
-                  Id du Message : {message.messageId}
-                </h5>
-                <p className="card-text">
-                  Contenu du Message : {message.messageContent}
-                </p>
-                <p className="card-text">
-                  Catégorie du Message :{message.discord}
-                </p>
-                <p className="card-text">
-                  Provient du Discord : {message.messageDiscord}
-                </p>
-                <ButtonGroup>
-                  <Button href="/user/profile" variant="contained">
-                    Update
-                  </Button>
-                  <Button
-                    variant="contained"
-                    onClick={handleDelete}
-                    color="error"
-                  >
-                    Delete
-                  </Button>
-                </ButtonGroup>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Container sx={{ p: 7 }} maxWidth="lg">
+      {message ? (
+        <Paper sx={{ p: 4 }}>
+          <Box display="flex">
+            <Box flexGrow={1}>
+              <Typography
+                component="h2"
+                variant="h6"
+                color="primary"
+                gutterBottom
+              >
+                MESSAGE DETAIL
+              </Typography>
+            </Box>
+          </Box>
+          <TableContainer component={Paper}>
+            <Table aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>ID</TableCell>
+                  <TableCell>CONTENU</TableCell>
+                  <TableCell>CATEGORIE</TableCell>
+                  <TableCell>DISCORD</TableCell>
+                  <TableCell>CHANNEL</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                <TableRow>
+                  <TableCell>{message.messageId}</TableCell>
+                  <TableCell>{message.messageContent}</TableCell>
+                  <TableCell>{message.categorieId.categorieNom}</TableCell>
+                  <TableCell>{message.discordId.discordNom}</TableCell>
+                  <TableCell>{message.discordId.discordChannel}</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Paper>
+      ) : null}
+    </Container>
   );
 };
 

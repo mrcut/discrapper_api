@@ -1,3 +1,7 @@
+import { Icon } from "@mui/material";
+import YourLogo from "./assets/Discrapper.svg";
+import logoDiscord from "./assets/discord.svg";
+
 export const urlApi = "http://localhost:3030/api/";
 
 export const urlLogin = urlApi + "login";
@@ -60,3 +64,15 @@ export const authHeader = () => {
 export const execScript = "Executer le Script";
 
 export const dc = "Logout";
+
+export const Logo = () => (
+  <Icon>
+    <img alt="logo" src={YourLogo} height={60} width={60} />
+  </Icon>
+);
+
+export const DiscordLogo = () => (
+  <Icon>
+    <img alt="discord_logo" src={logoDiscord} height={60} width={60} />
+  </Icon>
+);

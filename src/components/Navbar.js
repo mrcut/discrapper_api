@@ -21,17 +21,10 @@ import {
 
 import { useEffect, useState } from "react";
 
-import YourLogo from "../assets/Discrapper.svg";
 import { Icon, styled } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { executeScript } from "../api/api-user";
-import { dc, execScript } from "../constantes";
-
-export const Logo = () => (
-  <Icon>
-    <img alt="logo" src={YourLogo} height={25} width={25} />
-  </Icon>
-);
+import { dc, execScript, Logo } from "../constantes";
 
 const Header = styled(AppBar)`
   background: #111111;

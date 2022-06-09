@@ -20,21 +20,21 @@ const MessageByCategorie = ({ id }) => {
       });
   }, [id]);
 
-  // const handleDelete = (id) => {
-  //   deleteMessage(id)
-  //     .then((response) => {
-  //       console.log("ok");
-  //       // rajouter confirmation
+  const handleDelete = (id) => {
+    deleteMessage(id)
+      .then((response) => {
+        console.log("ok");
 
-  //       const msgTmp = liste.filter((message) => message.messageId !== id);
-  //       setListe((actual) => msgTmp);
-  //     })
-  //     .catch((err) => {
-  //       const error = err.response.data.error;
-  //       console.log(error);
-  //       console.log(id);
-  //     });
-  // };
+
+        const msgTmp = categorie.filter((message) => message.messageId !== id);
+        setCategorie((actual) => msgTmp);
+      })
+      .catch((err) => {
+        const error = err.response.data.error;
+        console.log(error);
+        console.log(id);
+      });
+  };
 
   return (
     // <div>
@@ -62,7 +62,7 @@ const MessageByCategorie = ({ id }) => {
 
                 <Button
                   variant="contained"
-                  // onClick={() => handleDelete(message.messageId)}
+                  onClick={() => handleDelete(message.messageId)}
                   color="error"
                   endIcon={<Delete />}
                 >

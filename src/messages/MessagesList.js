@@ -5,7 +5,6 @@ import {
   ButtonGroup,
   Chip,
   Container,
-  ListItem,
   Paper,
   Table,
   TableBody,
@@ -26,62 +25,45 @@ import {
 import MessageByCategorie from "./MessageByCategorie";
 
 const MessagesList = () => {
-  const [liste, setListe] = useState([]);
-  const [categorie, setCategorie] = useState([]);
-
+  const [messages, setMessages] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [idCategorie, setIdCategorie] = useState(0);
-  const [chipData, setChipData] = useState([]);
 
-  function handleCategoryChange(e) {
-    setIdCategorie(e.target.value);
-    console.log("categorie", idCategorie);
-  }
+  const handleCategorie = (id) => {
+    setIdCategorie((actual) => id);
+  };
 
   useEffect(() => {
     getAllCategories()
       .then((response) => {
-        setCategorie((actual) => response.data);
-        console.log("categorie", categorie);
+        setCategories((actual) => response.data);
       })
       .catch((err) => {
-        console.log("categorie", categorie);
-        console.log(err.response.data.categorie);
+        console.log(err.response.data);
       });
   }, []);
 
   useEffect(() => {
     getMessages()
       .then((response) => {
-        const messages = response.data;
-        setListe((actual) => messages);
-        console.log(messages);
-        console.log("categorie", categorie);
+        const result = response.data;
+        setMessages((actual) => result);
+        console.log(idCategorie);
+        console.log(result);
       })
       .catch((err) => {
-        const message = err.response.data.message;
-        console.log(message);
+        const error = err.response.data.error;
+        console.log(error);
       });
   }, []);
-
-  const handleCategorie = (id, nom) => {
-    // setIdCategorie(categorie.categorieId);
-    console.log(id);
-    setChipData((actual) => ({
-      key: id,
-      label: nom,
-      color: "primary",
-    }));
-    getCategorie(idCategorie);
-  };
 
   const handleDelete = (id) => {
     deleteMessage(id)
       .then((response) => {
         console.log("ok");
-        // rajouter confirmation
 
-        const msgTmp = liste.filter((message) => message.messageId !== id);
-        setListe((actual) => msgTmp);
+        const msgTmp = messages.filter((message) => message.messageId !== id);
+        setMessages((actual) => msgTmp);
       })
       .catch((err) => {
         const error = err.response.data.error;
@@ -89,33 +71,6 @@ const MessagesList = () => {
         console.log(id);
       });
   };
-
-  const getCategorie = (id) => {
-    getMessageByCategorie(id)
-      .then((response) => {
-        setListe((actual) => response.data);
-        console.log(id);
-        console.log(liste);
-      })
-      .catch((err) => {
-        console.log(id);
-
-        console.log(err.response.data.setCategorie);
-      });
-  };
-
-  // useEffect(() => {
-  //   getMessageByCategorie(id)
-  //     .then((response) => {
-  //       setListe((actual) => response.data);
-  //       console.log(id);
-  //     })
-  //     .catch((err) => {
-  //       console.log(id);
-
-  //       console.log(err.response.data.setCategorie);
-  //     });
-  // }, [id]);
 
   return (
     <Container sx={{ p: 7 }} maxWidth="lg">
@@ -132,14 +87,16 @@ const MessagesList = () => {
             </Typography>
           </Box>
           <div>
-            {categorie.map((categorie) => (
+            <Chip
+              label="ALL"
+              color="primary"
+              onClick={() => handleCategorie(0)}
+            />
+            {categories.map((categorie) => (
               <Chip
                 key={categorie.categorieId}
-                icon={<Face />}
-                onChange={handleCategoryChange}
-                onClick={() =>
-                  handleCategorie(categorie.categorieId, categorie.categorieNom)
-                }
+                color={categorie.categorieId % 2 ? "primary" : "success"}
+                onClick={() => handleCategorie(categorie.categorieId)}
                 label={categorie.categorieNom}
               />
             ))}
@@ -158,7 +115,7 @@ const MessagesList = () => {
                 <MessageByCategorie id={idCategorie} />
               ) : (
                 <>
-                  {liste.map((message) => (
+                  {messages.map((message) => (
                     <TableRow key={"msg" + message.messageId}>
                       <TableCell>
                         <Link to={"/message/" + message.messageId}>

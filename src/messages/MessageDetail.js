@@ -28,9 +28,8 @@ const MessageDetail = () => {
         setMessage((actual) => data);
       })
       .catch((err) => {
-        // const error = err.response.data.error;
-        // console.log(error);
-        console.log("Erreur");
+        const error = err.response.data.error;
+        console.log(error);
       });
   }, [paramId]);
 

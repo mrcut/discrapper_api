@@ -1,4 +1,5 @@
 import {
+  Accessibility,
   AccountBox,
   Add,
   BarChart,
@@ -22,6 +23,13 @@ export const navbarUser = [generateItem(0, <QuestionAnswer />, "FAQ", "faq")];
 export const navbarEmploye = [
   generateItem(0, <ChatBubble />, "Messages", "messages"),
   generateItem(1, <BarChart />, "Statistiques", "stats"),
+];
+
+export const navbarAdmin = [
+  generateItem(0, <ChatBubble />, "Messages", "messages"),
+  generateItem(1, <BarChart />, "Statistiques", "stats"),
+  generateItem(2, <BarChart />, "Liste des Discord", "discords"),
+  generateItem(3, <Accessibility />, "Liste des Users", "users"),
 ];
 
 export const settings = [

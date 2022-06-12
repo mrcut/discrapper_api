@@ -1,4 +1,4 @@
-import { Delete, Face, Visibility } from "@mui/icons-material";
+import { Delete, Visibility } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -19,7 +19,6 @@ import { Link } from "react-router-dom";
 import {
   deleteMessage,
   getAllCategories,
-  getMessageByCategorie,
   getMessages,
 } from "../api/api-messages";
 import MessageByCategorie from "./MessageByCategorie";

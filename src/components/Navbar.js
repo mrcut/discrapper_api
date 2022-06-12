@@ -13,15 +13,16 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 
 import {
+  navbarAdmin,
   navbarEmploye,
   navbarUser,
-  settings,
   settingsAdmin,
+  settingsEmploye,
 } from "./NavbarConst";
 
 import { useEffect, useState } from "react";
 
-import { Icon, styled } from "@mui/material";
+import { styled } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { executeScript } from "../api/api-user";
 import { dc, execScript, Logo } from "../constantes";
@@ -39,7 +40,6 @@ const Navbar = ({ user, logout }) => {
     }
     if (item.label === dc) {
       logout();
-      navigate("/");
     } else {
       navigate(item.route);
     }
@@ -61,7 +61,7 @@ const Navbar = ({ user, logout }) => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [nav, setNav] = useState(navbarUser);
-  const [menu, setMenu] = useState(settings);
+  const [menu, setMenu] = useState(settingsEmploye);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -79,13 +79,17 @@ const Navbar = ({ user, logout }) => {
   };
 
   useEffect(() => {
-    if (user && (user.role === "admin" || user.role === "employe")) {
-      setNav((actual) => navbarEmploye);
+    if (user && user.role === "admin") {
+      setNav((actual) => navbarAdmin);
       setMenu((actual) => settingsAdmin);
+    }
+    if (user && user.role === "employe") {
+      setNav((actual) => navbarEmploye);
+      setMenu((actual) => settingsEmploye);
     }
     if (user === null) {
       setNav(navbarUser);
-      setMenu(settings);
+      setMenu(settingsEmploye);
     }
   }, [user]);
 

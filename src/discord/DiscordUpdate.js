@@ -1,9 +1,9 @@
-import { Link, Typography } from "@mui/material";
-import SendIcon from "@mui/icons-material/Send";
-import { Button, Container, Paper, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Button, Container, Grid, TextField, Typography } from "@mui/material";
 import { getDiscordById, updateDiscord } from "../api/api-discord";
+import SendIcon from "@mui/icons-material/Send";
+import { useParams } from "react-router-dom";
+import { KeyboardBackspace } from "@mui/icons-material";
 
 const discordInput = {
   discordNom: "",
@@ -12,22 +12,36 @@ const discordInput = {
 };
 
 const DiscordUpdate = () => {
-  const [discordForm, setDiscordForm] = useState({ ...discordInput });
+  let { paramId } = useParams();
 
-  const paperStyle = { padding: "50px 20px ", width: 600, margin: "20px auto" };
+  const [discordForm, setDiscordForm] = useState({ ...discordInput });
 
   const [message, setMessage] = useState("");
 
-  let { paramId } = useParams();
+  useEffect(() => {
+    getDiscordById(paramId)
+      .then((response) => {
+        const data = response.data;
+        console.log(data);
+
+        setDiscordForm((actual) => {
+          return {
+            discordNom: data.discordNom,
+            discordLien: data.discordLien,
+            discordChannel: data.discordChannel,
+          };
+        });
+      })
+      .catch((err) => {
+        const error = err.response.data.error;
+        console.log(error);
+      });
+  }, [paramId]);
 
   const handleFocus = () => {
     if (message) {
       setMessage((actuel) => "");
     }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
   };
 
   const handleChange = (e) => {
@@ -36,81 +50,93 @@ const DiscordUpdate = () => {
     });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
   const handleClick = () => {
-    updateDiscord(discordForm)
+    updateDiscord(paramId, discordForm)
       .then((response) => {
         const discord = response.data;
         console.log(discord);
       })
       .catch((err) => {
-        // const message = err.response.data.message;
         setMessage((actual) => err.response.data.message);
+        console.log("error");
+        console.log(discordForm);
       });
   };
 
-  useEffect(() => {
-    getDiscordById(paramId).then((response) => {
-      const data = response.data;
-      setDiscordForm((actual) => data);
-    }, []);
-  });
-
   return (
-    <div>
-      <Typography align="center" variant="h3" children="Modifier un Discord" />
-      <Container>
-        <Paper elevation={3} style={paperStyle}>
-          <form className="bg-light p-5" onSubmit={handleSubmit}>
-            {message ? <p className="text-danger">{message}</p> : null}
-            <h1 style={{ color: "blue" }}>
-              <u>Infos Discord</u>{" "}
-            </h1>
+    <Container sx={{ p: 5 }} maxWidth="sm">
+      <div>
+        <Typography component="h1" variant="h5">
+          Update a Discord
+        </Typography>
+        <form onSubmit={handleSubmit}>
+          {message ? <p className="text-danger">{message}</p> : null}
+          <Grid container sx={{ pt: 5 }} spacing={3}>
+            <Grid item xs={12}>
+              <TextField
+                required
+                value={discordForm.discordNom}
+                name="discordNom"
+                id="discordNom"
+                label="Discord Name"
+                variant="outlined"
+                fullWidth
+                onChange={handleChange}
+                onFocus={handleFocus}
+              />
+            </Grid>
 
-            <TextField
-              required
-              name="discordNom"
-              id="discordNom"
-              label="Discord Name"
-              variant="outlined"
-              fullWidth
-              onChange={handleChange}
-              onFocus={handleFocus}
-            />
+            <Grid item xs={12}>
+              <TextField
+                required
+                value={discordForm.discordLien}
+                name="discordLien"
+                id="discordLien"
+                label="Discord Link"
+                variant="outlined"
+                fullWidth
+                onChange={handleChange}
+                onFocus={handleFocus}
+              />
+            </Grid>
 
-            <TextField
-              required
-              name="discordLien"
-              id="discordLien"
-              label="Discord Link"
-              variant="outlined"
-              fullWidth
-              onChange={handleChange}
-              onFocus={handleFocus}
-            />
+            <Grid item xs={12}>
+              <TextField
+                required
+                value={discordForm.discordChannel}
+                name="discordChannel"
+                id="discordChannel"
+                label="Discord Channel"
+                variant="outlined"
+                fullWidth
+                onChange={handleChange}
+                onFocus={handleFocus}
+              />
+            </Grid>
 
-            <TextField
-              required
-              name="discordChannel"
-              id="discordChannel"
-              label="Discord Channel"
-              variant="outlined"
-              fullWidth
-              onChange={handleChange}
-              onFocus={handleFocus}
-            />
-
-            <Button
-              variant="contained"
-              endIcon={<SendIcon />}
-              onClick={handleClick}
-            >
-              Send
-            </Button>
-          </form>
-        </Paper>
-      </Container>
-      <Link href="/discords">Back to List</Link>
-    </div>
+            <Grid item xs={12}>
+              <Button
+                variant="contained"
+                endIcon={<SendIcon />}
+                onClick={handleClick}
+                fullWidth
+              >
+                Send
+              </Button>
+            </Grid>
+            <Grid item xs={12}>
+              <Button startIcon={<KeyboardBackspace />} href="/discords">
+                Back to List
+              </Button>
+            </Grid>
+          </Grid>
+        </form>
+      </div>
+    </Container>
   );
 };
 

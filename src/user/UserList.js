@@ -33,7 +33,6 @@ const UserList = () => {
       });
   }, []);
 
-
   const handleDelete = (id) => {
     deleteUser(id)
       .then((response) => {
@@ -61,7 +60,7 @@ const UserList = () => {
               color="primary"
               gutterBottom
             >
-              USERS
+              LISTE DES UTILISATEURS
             </Typography>
           </Box>
           <Box>

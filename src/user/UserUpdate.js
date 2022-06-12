@@ -3,7 +3,6 @@ import {
   Button,
   Container,
   Grid,
-  Link,
   MenuItem,
   TextField,
   Typography,
@@ -11,6 +10,7 @@ import {
 import { getUserById, updateUser } from "../api/api-user";
 import SendIcon from "@mui/icons-material/Send";
 import { useParams } from "react-router-dom";
+import { KeyboardBackspace } from "@mui/icons-material";
 
 let userInput = {
   email: "",
@@ -29,8 +29,6 @@ const UserUpdate = () => {
 
   const [message, setMessage] = useState("");
 
-  const [role, setRole] = useState("user");
-
   useEffect(() => {
     getUserById(paramId)
       .then((response) => {
@@ -41,6 +39,7 @@ const UserUpdate = () => {
           return {
             email: data.utilisateurEmail,
             nom: data.utilisateurNom,
+            mdp: data.utilisateurMdp,
             prenom: data.utilisateurPrenom,
             tel: data.utilisateurTel,
             discord: data.utilisateurDiscord,
@@ -66,13 +65,6 @@ const UserUpdate = () => {
     });
   };
 
-  const handleRole = (e) => {
-    setRole(e.target.value);
-    setUserForm((actual) => {
-      return { ...actual, [e.target.name]: e.target.value };
-    });
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -87,7 +79,6 @@ const UserUpdate = () => {
         setMessage((actual) => err.response.data.message);
         console.log("error");
         console.log(userForm);
-        console.log(role);
       });
   };
 
@@ -107,131 +98,132 @@ const UserUpdate = () => {
 
   return (
     <Container sx={{ p: 5 }} maxWidth="sm">
-      <div>
-        <Typography component="h1" variant="h5">
-          Update a User
-        </Typography>
-        <form onSubmit={handleSubmit}>
-          {message ? <p className="text-danger">{message}</p> : null}
-          <Grid container sx={{ pt: 5 }} spacing={3}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                required
-                id="email"
-                label="Email"
-                value={userForm.email}
-                variant="outlined"
-                name="email"
-                autoComplete="email"
-                fullWidth
-                onChange={handleChange}
-                onFocus={handleFocus}
-              />
-            </Grid>
-
-            <Grid item xs={12} sm={6}>
-              <TextField
-                required
-                id="mdp"
-                name="mdp"
-                label="Password"
-                type="password"
-                variant="outlined"
-                autoComplete="mdp"
-                fullWidth
-                onChange={handleChange}
-                onFocus={handleFocus}
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <TextField
-                required
-                id="nom"
-                name="nom"
-                label="LAST NAME"
-                value={userForm.nom}
-                variant="outlined"
-                fullWidth
-                onChange={handleChange}
-                onFocus={handleFocus}
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <TextField
-                required
-                id="prenom"
-                name="prenom"
-                label="FIRST NAME"
-                value={userForm.prenom}
-                variant="outlined"
-                onChange={handleChange}
-                onFocus={handleFocus}
-                fullWidth
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <TextField
-                id="tel"
-                name="tel"
-                label="PHONE NUMBER"
-                value={userForm.tel}
-                variant="outlined"
-                fullWidth
-                onChange={handleChange}
-                onFocus={handleFocus}
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <TextField
-                id="discord"
-                name="discord"
-                label="DISCORD NICKNAME"
-                value={userForm.discord}
-                variant="outlined"
-                fullWidth
-                onChange={handleChange}
-                onFocus={handleFocus}
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <TextField
-                name="role"
-                id="role"
-                select
-                label="Role"
-                value={role}
-                onChange={handleRole}
-                onFocus={handleFocus}
-                fullWidth
-                color="primary"
-              >
-                {roles.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </Grid>
-            <Grid item xs={12}>
-              <Button
-                variant="contained"
-                endIcon={<SendIcon />}
-                onClick={handleClick}
-                fullWidth
-              >
-                Send
-              </Button>
-            </Grid>
+      <Typography component="h1" variant="h5">
+        Update a User
+      </Typography>
+      <form onSubmit={handleSubmit}>
+        {message ? <p className="text-danger">{message}</p> : null}
+        <Grid container sx={{ pt: 5 }} spacing={3}>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              required
+              id="email"
+              label="Email"
+              value={userForm.email}
+              variant="outlined"
+              name="email"
+              autoComplete="email"
+              fullWidth
+              onChange={handleChange}
+              onFocus={handleFocus}
+            />
           </Grid>
-        </form>
 
-        <Link href="/users">Back to List</Link>
-      </div>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              required
+              id="mdp"
+              name="mdp"
+              label="Password"
+              type="password"
+              variant="outlined"
+              autoComplete="mdp"
+              fullWidth
+              onChange={handleChange}
+              onFocus={handleFocus}
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <TextField
+              required
+              id="nom"
+              name="nom"
+              label="LAST NAME"
+              value={userForm.nom}
+              variant="outlined"
+              fullWidth
+              onChange={handleChange}
+              onFocus={handleFocus}
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <TextField
+              required
+              id="prenom"
+              name="prenom"
+              label="FIRST NAME"
+              value={userForm.prenom}
+              variant="outlined"
+              onChange={handleChange}
+              onFocus={handleFocus}
+              fullWidth
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <TextField
+              id="tel"
+              name="tel"
+              label="PHONE NUMBER"
+              value={userForm.tel}
+              variant="outlined"
+              fullWidth
+              onChange={handleChange}
+              onFocus={handleFocus}
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <TextField
+              id="discord"
+              name="discord"
+              label="DISCORD NICKNAME"
+              value={userForm.discord}
+              variant="outlined"
+              fullWidth
+              onChange={handleChange}
+              onFocus={handleFocus}
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <TextField
+              name="role"
+              id="role"
+              select
+              label="Role"
+              value={userForm.role}
+              onChange={handleChange}
+              onFocus={handleFocus}
+              fullWidth
+              color="primary"
+            >
+              {roles.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Grid>
+          <Grid item xs={12}>
+            <Button
+              variant="contained"
+              endIcon={<SendIcon />}
+              onClick={handleClick}
+              fullWidth
+            >
+              Send
+            </Button>
+          </Grid>
+          <Grid item xs={12}>
+            <Button startIcon={<KeyboardBackspace />} href="/users">
+              Back to List
+            </Button>
+          </Grid>
+        </Grid>
+      </form>
     </Container>
   );
 };

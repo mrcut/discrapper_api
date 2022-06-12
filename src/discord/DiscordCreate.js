@@ -1,15 +1,9 @@
 import { useState } from "react";
-import {
-  Button,
-  Container,
-  Grid,
-  Link,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, Container, Grid, TextField, Typography } from "@mui/material";
 
 import SendIcon from "@mui/icons-material/Send";
 import { createDiscord } from "../api/api-discord";
+import { KeyboardBackspace } from "@mui/icons-material";
 
 const discordInput = {
   discordNom: "",
@@ -109,10 +103,13 @@ const DiscordCreate = () => {
                 Send
               </Button>
             </Grid>
+            <Grid item xs={12}>
+              <Button startIcon={<KeyboardBackspace />} href="/discords">
+                Back to List
+              </Button>
+            </Grid>
           </Grid>
         </form>
-
-        <Link href="/discords">Back to List</Link>
       </div>
     </Container>
   );

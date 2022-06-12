@@ -20,11 +20,9 @@ const MessageDetail = () => {
   let { paramId } = useParams();
 
   useEffect(() => {
-    console.log("lancement du useEffect");
     getMessageById(paramId)
       .then((response) => {
         const data = response.data;
-        console.log(data);
         setMessage((actual) => data);
       })
       .catch((err) => {

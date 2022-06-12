@@ -2,6 +2,7 @@ import {
   Accessibility,
   AccountBox,
   Add,
+  AddToQueue,
   BarChart,
   ChatBubble,
   Javascript,
@@ -28,11 +29,11 @@ export const navbarEmploye = [
 export const navbarAdmin = [
   generateItem(0, <ChatBubble />, "Messages", "messages"),
   generateItem(1, <BarChart />, "Statistiques", "stats"),
-  generateItem(2, <BarChart />, "Liste des Discord", "discords"),
-  generateItem(3, <Accessibility />, "Liste des Users", "users"),
+  generateItem(2, <AddToQueue />, "Discords", "discords"),
+  generateItem(3, <Accessibility />, "Utilisateurs", "users"),
 ];
 
-export const settings = [
+export const settingsEmploye = [
   generateItem(0, <AccountBox />, "Profile", "/user/profile"),
   generateItem(1, <Logout />, "Logout", "/"),
 ];

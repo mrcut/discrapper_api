@@ -13,8 +13,8 @@ export const createDiscord = (inputs) => {
   return axios.post(urlDiscordCreate, inputs, config);
 };
 
-export const updateDiscord = (id) => {
-  return axios.put(urlDiscordUpdate + id);
+export const updateDiscord = (id, inputs) => {
+  return axios.put(urlDiscordUpdate + id, inputs);
 };
 
 export const getAllDiscords = () => {

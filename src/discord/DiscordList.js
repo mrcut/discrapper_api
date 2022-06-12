@@ -59,7 +59,7 @@ const DiscordList = () => {
               color="primary"
               gutterBottom
             >
-              DISCORDS
+              LISTE DES DISCORDS
             </Typography>
           </Box>
           <Box>

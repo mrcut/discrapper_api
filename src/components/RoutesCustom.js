@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Home from "../home/Home";
 import FAQ from "../home/FAQ";
 import Login from "../home/Login";
@@ -17,13 +17,16 @@ import { getUserFromLocalStorage } from "../constantes";
 import Statistiques from "../stats/Statistiques";
 import NotFound from "./NotFound";
 import UserUpdate from "../user/UserUpdate";
-import MessageByCategorie from "../messages/MessageByCategorie";
 
 const RoutesCustom = ({ user, setUser, logout }) => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     const userInStorage = getUserFromLocalStorage();
     if (userInStorage) {
       setUser((actual) => userInStorage);
+    } else {
+      navigate("/");
     }
   }, []);
   return (

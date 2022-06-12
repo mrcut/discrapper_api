@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { deleteMessage, getMessageByCategorie } from "../api/api-messages";
 import { Link } from "react-router-dom";
-import { Button, ButtonGroup, Chip, TableCell, TableRow } from "@mui/material";
-import { Delete, Face, Visibility } from "@mui/icons-material";
+import { Button, ButtonGroup, TableCell, TableRow } from "@mui/material";
+import { Delete, Visibility } from "@mui/icons-material";
 
 const MessageByCategorie = ({ id }) => {
   const [categorie, setCategorie] = useState([]);
@@ -24,7 +24,6 @@ const MessageByCategorie = ({ id }) => {
     deleteMessage(id)
       .then((response) => {
         console.log("ok");
-
 
         const msgTmp = categorie.filter((message) => message.messageId !== id);
         setCategorie((actual) => msgTmp);

@@ -68,78 +68,76 @@ const UserProfile = ({ setCurrentUser }) => {
 
   return (
     <Container sx={{ p: 5 }} maxWidth="sm">
-      <div>
-        <Typography component="h1" variant="h5">
-          Mes Infos
-        </Typography>
-        <form onSubmit={handleSubmit}>
-          {message ? <p className="text-danger">{message}</p> : null}
-          <Grid container sx={{ pt: 5 }} spacing={3}>
-            <Grid item xs={12}>
-              <TextField
-                id="nom"
-                name="nom"
-                label="LAST NAME"
-                value={userForm.nom}
-                variant="outlined"
-                fullWidth
-                onChange={handleChange}
-                onFocus={handleFocus}
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <TextField
-                id="prenom"
-                name="prenom"
-                label="FIRST NAME"
-                value={userForm.prenom}
-                variant="outlined"
-                onChange={handleChange}
-                onFocus={handleFocus}
-                fullWidth
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <TextField
-                id="tel"
-                name="tel"
-                label="PHONE NUMBER"
-                value={userForm.tel}
-                variant="outlined"
-                fullWidth
-                onChange={handleChange}
-                onFocus={handleFocus}
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <TextField
-                id="discord"
-                name="discord"
-                label="DISCORD NICKNAME"
-                value={userForm.discord}
-                variant="outlined"
-                fullWidth
-                onChange={handleChange}
-                onFocus={handleFocus}
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <Button
-                variant="contained"
-                endIcon={<SendIcon />}
-                onClick={handleClick}
-                fullWidth
-              >
-                Send
-              </Button>
-            </Grid>
+      <Typography component="h1" variant="h5">
+        Mes Infos
+      </Typography>
+      <form onSubmit={handleSubmit}>
+        {message ? <p className="text-danger">{message}</p> : null}
+        <Grid container sx={{ pt: 5 }} spacing={3}>
+          <Grid item xs={12}>
+            <TextField
+              id="nom"
+              name="nom"
+              label="LAST NAME"
+              value={userForm.nom}
+              variant="outlined"
+              fullWidth
+              onChange={handleChange}
+              onFocus={handleFocus}
+            />
           </Grid>
-        </form>
-      </div>
+
+          <Grid item xs={12}>
+            <TextField
+              id="prenom"
+              name="prenom"
+              label="FIRST NAME"
+              value={userForm.prenom}
+              variant="outlined"
+              onChange={handleChange}
+              onFocus={handleFocus}
+              fullWidth
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <TextField
+              id="tel"
+              name="tel"
+              label="PHONE NUMBER"
+              value={userForm.tel}
+              variant="outlined"
+              fullWidth
+              onChange={handleChange}
+              onFocus={handleFocus}
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <TextField
+              id="discord"
+              name="discord"
+              label="DISCORD NICKNAME"
+              value={userForm.discord}
+              variant="outlined"
+              fullWidth
+              onChange={handleChange}
+              onFocus={handleFocus}
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <Button
+              variant="contained"
+              endIcon={<SendIcon />}
+              onClick={handleClick}
+              fullWidth
+            >
+              Send
+            </Button>
+          </Grid>
+        </Grid>
+      </form>
     </Container>
   );
 };

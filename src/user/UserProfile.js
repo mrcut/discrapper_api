@@ -1,4 +1,11 @@
-import { Button, Container, Grid, TextField, Typography } from "@mui/material";
+import {
+  Alert,
+  Button,
+  Container,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import { editProfile } from "../api/api-user";
 import { getUserFromLocalStorage } from "../constantes";
@@ -13,6 +20,13 @@ const UserProfile = ({ setCurrentUser }) => {
   });
 
   const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+
+  const handleFocus = () => {
+    if (message) {
+      setMessage((actuel) => "");
+    }
+  };
 
   useEffect(() => {
     const user = getUserFromLocalStorage();
@@ -32,33 +46,29 @@ const UserProfile = ({ setCurrentUser }) => {
     });
   };
 
-  const handleFocus = () => {
-    if (message) {
-      setMessage((actuel) => "");
-    }
-  };
-
   const handleClick = () => {
     editProfile(userForm)
       .then((response) => {
-        const emp = response.data;
-        console.log(emp);
+        const profile = response.data;
+        console.log(profile);
         let user = getUserFromLocalStorage();
         user = {
           ...user,
           nom: userForm.nom,
           prenom: userForm.prenom,
-          tel: userForm.tel,
           discord: userForm.discord,
+          tel: userForm.tel,
         };
         localStorage.setItem("user", JSON.stringify(user));
+
         setCurrentUser((actual) => user);
-        setMessage((actual) => "Modifs Effectué ");
-        console.log(message);
+        setMessage((actual) => "Changements effectués");
+        console.log("errroor");
       })
       .catch((err) => {
-        console.log(err.response);
-        setMessage(err.response);
+        const msg = err.response.data.msg;
+        console.log(msg);
+        console.log("errr");
       });
   };
 
@@ -72,7 +82,11 @@ const UserProfile = ({ setCurrentUser }) => {
         Mes Infos
       </Typography>
       <form onSubmit={handleSubmit}>
-        {message ? <p className="text-danger">{message}</p> : null}
+        {message ? (
+          <Alert severity="success">{message}</Alert>
+        ) : error ? (
+          <Alert severity="error">{error}</Alert>
+        ) : null}
         <Grid container sx={{ pt: 5 }} spacing={3}>
           <Grid item xs={12}>
             <TextField

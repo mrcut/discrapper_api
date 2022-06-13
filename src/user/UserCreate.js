@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+  Alert,
   Button,
   Container,
   Grid,
@@ -25,6 +26,7 @@ const UserCreate = () => {
   const [userForm, setUserFrom] = useState({ ...userInput });
 
   const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
 
   const handleFocus = () => {
     if (message) {
@@ -48,7 +50,7 @@ const UserCreate = () => {
         setMessage((actual) => "L'Utilisateur a bien été ajouté");
       })
       .catch((err) => {
-        setMessage((actual) => err.response.data.message);
+        setError((actual) => err.response.data.message);
       });
   };
 
@@ -72,7 +74,11 @@ const UserCreate = () => {
         Create a New User
       </Typography>
       <form onSubmit={handleSubmit}>
-        {message ? <p className="text-danger">{message}</p> : null}
+        {message ? (
+          <Alert severity="success">{message}</Alert>
+        ) : error ? (
+          <Alert severity="error">{error}</Alert>
+        ) : null}
         <Grid container sx={{ pt: 5 }} spacing={3}>
           <Grid item xs={12} sm={6}>
             <TextField

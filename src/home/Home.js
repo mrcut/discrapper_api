@@ -3,11 +3,9 @@ import {
   Card,
   CardActionArea,
   CardActions,
-  CardContent,
   CardHeader,
   CardMedia,
   Grid,
-  Typography,
 } from "@mui/material";
 import { Container } from "@mui/system";
 

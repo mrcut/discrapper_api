@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { Button, Container, Grid, TextField, Typography } from "@mui/material";
+import {
+  Alert,
+  Button,
+  Container,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { getDiscordById, updateDiscord } from "../api/api-discord";
 import SendIcon from "@mui/icons-material/Send";
 import { useParams } from "react-router-dom";
@@ -17,6 +24,7 @@ const DiscordUpdate = () => {
   const [discordForm, setDiscordForm] = useState({ ...discordInput });
 
   const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
     getDiscordById(paramId)
@@ -59,9 +67,10 @@ const DiscordUpdate = () => {
       .then((response) => {
         const discord = response.data;
         console.log(discord);
+        setMessage((actual) => "Changements effectués");
       })
       .catch((err) => {
-        setMessage((actual) => err.response.data.message);
+        setError((actual) => err.response.data.message);
         console.log("error");
         console.log(discordForm);
       });
@@ -74,7 +83,11 @@ const DiscordUpdate = () => {
           Update a Discord
         </Typography>
         <form onSubmit={handleSubmit}>
-          {message ? <p className="text-danger">{message}</p> : null}
+          {message ? (
+            <Alert severity="success">{message}</Alert>
+          ) : error ? (
+            <Alert severity="error">{error}</Alert>
+          ) : null}
           <Grid container sx={{ pt: 5 }} spacing={3}>
             <Grid item xs={12}>
               <TextField

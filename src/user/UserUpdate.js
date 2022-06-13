@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import {
+  Alert,
   Button,
   Container,
   Grid,
@@ -28,6 +29,7 @@ const UserUpdate = () => {
   const [userForm, setUserForm] = useState({ ...userInput });
 
   const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
     getUserById(paramId)
@@ -74,9 +76,10 @@ const UserUpdate = () => {
       .then((response) => {
         const user = response.data;
         console.log(user);
+        setMessage((actual) => "L'Utilisateur a bien été mis à jour");
       })
       .catch((err) => {
-        setMessage((actual) => err.response.data.message);
+        setError((actual) => err.response.data.message);
         console.log("error");
         console.log(userForm);
       });
@@ -102,7 +105,11 @@ const UserUpdate = () => {
         Update a User
       </Typography>
       <form onSubmit={handleSubmit}>
-        {message ? <p className="text-danger">{message}</p> : null}
+        {message ? (
+          <Alert severity="success">{message}</Alert>
+        ) : error ? (
+          <Alert severity="error">{error}</Alert>
+        ) : null}
         <Grid container sx={{ pt: 5 }} spacing={3}>
           <Grid item xs={12} sm={6}>
             <TextField

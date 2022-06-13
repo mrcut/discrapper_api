@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { Button, Container, Grid, TextField, Typography } from "@mui/material";
+import {
+  Alert,
+  Button,
+  Container,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
 
 import SendIcon from "@mui/icons-material/Send";
 import { createDiscord } from "../api/api-discord";
@@ -15,6 +22,7 @@ const DiscordCreate = () => {
   const [discordForm, setDiscordForm] = useState({ ...discordInput });
 
   const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
 
   const handleFocus = () => {
     if (message) {
@@ -40,8 +48,7 @@ const DiscordCreate = () => {
         setMessage((actual) => "Ce Discord a bien été ajouté");
       })
       .catch((err) => {
-        // const message = err.response.data.message;
-        setMessage((actual) => err.response.data.message);
+        setError((actual) => err.response.data.message);
       });
   };
 
@@ -52,7 +59,12 @@ const DiscordCreate = () => {
           Create a New Discord
         </Typography>
         <form onSubmit={handleSubmit}>
-          {message ? <p className="text-danger">{message}</p> : null}
+          {message ? (
+            <Alert severity="success">{message}</Alert>
+          ) : error ? (
+            <Alert severity="error">{error}</Alert>
+          ) : null}
+
           <Grid container sx={{ pt: 5 }} spacing={3}>
             <Grid item xs={12}>
               <TextField

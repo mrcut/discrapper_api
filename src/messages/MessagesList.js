@@ -72,7 +72,12 @@ const MessagesList = () => {
   };
 
   return (
-    <Container sx={{ p: 7 }} maxWidth="lg">
+    <Container
+      disableGutters
+      maxWidth="sm"
+      component="main"
+      sx={{ pt: 8, pb: 6 }}
+    >
       <Paper sx={{ p: 4 }}>
         <Box display="flex">
           <Box flexGrow={1}>

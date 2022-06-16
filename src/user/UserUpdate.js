@@ -34,7 +34,6 @@ const UserUpdate = () => {
     getUserById(paramId)
       .then((response) => {
         const data = response.data;
-        console.log(data);
 
         setUserForm((actual) => {
           return {

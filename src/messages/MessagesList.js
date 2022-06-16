@@ -47,8 +47,6 @@ const MessagesList = () => {
       .then((response) => {
         const result = response.data;
         setMessages((actual) => result);
-        console.log(idCategorie);
-        console.log(result);
       })
       .catch((err) => {
         const error = err.response.data.error;

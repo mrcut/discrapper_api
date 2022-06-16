@@ -25,7 +25,6 @@ const UserList = () => {
       .then((response) => {
         const data = response.data;
         setUsers((actual) => data);
-        console.log(data);
       })
       .catch((err) => {
         const error = err.response.data.error;
@@ -36,9 +35,6 @@ const UserList = () => {
   const handleDelete = (id) => {
     deleteUser(id)
       .then((response) => {
-        console.log("ok");
-        // rajouter confirmation
-
         const usersTmp = users.filter((user) => user.utilisateurId !== id);
         setUsers((actual) => usersTmp);
       })

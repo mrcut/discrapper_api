@@ -20,7 +20,6 @@ const Home = ({ currentUser }) => {
       .then((response) => {
         const discords = response.data;
         setListe((actual) => discords);
-        console.log(discords);
       })
       .catch((err) => {
         console.log(err.response.data);

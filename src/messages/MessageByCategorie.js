@@ -11,7 +11,6 @@ const MessageByCategorie = ({ id }) => {
     getMessageByCategorie(id)
       .then((response) => {
         setCategorie((actual) => response.data);
-        console.log(id);
       })
       .catch((err) => {
         console.log(id);
@@ -23,8 +22,6 @@ const MessageByCategorie = ({ id }) => {
   const handleDelete = (id) => {
     deleteMessage(id)
       .then((response) => {
-        console.log("ok");
-
         const msgTmp = categorie.filter((message) => message.messageId !== id);
         setCategorie((actual) => msgTmp);
       })

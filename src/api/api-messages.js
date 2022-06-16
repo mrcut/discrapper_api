@@ -13,11 +13,13 @@ export const getMessages = () => {
 };
 
 export const getMessageById = (id) => {
-  return axios.get(urlMessageById + id);
+  const config = { headers: authHeader() };
+  return axios.get(urlMessageById + id, config);
 };
 
 export const deleteMessage = (id) => {
-  return axios.delete(urlMessageById + id);
+  const config = { headers: authHeader() };
+  return axios.delete(urlMessageById + id, config);
 };
 
 export const getMessageByCategorie = (id) => {

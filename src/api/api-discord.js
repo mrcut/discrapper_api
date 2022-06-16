@@ -14,7 +14,8 @@ export const createDiscord = (inputs) => {
 };
 
 export const updateDiscord = (id, inputs) => {
-  return axios.put(urlDiscordUpdate + id, inputs);
+  const config = { headers: authHeader() };
+  return axios.put(urlDiscordUpdate + id, inputs, config);
 };
 
 export const getAllDiscords = () => {
@@ -23,9 +24,11 @@ export const getAllDiscords = () => {
 };
 
 export const deleteDiscord = (id) => {
-  return axios.delete(urlDiscordDelete + id);
+  const config = { headers: authHeader() };
+  return axios.delete(urlDiscordDelete + id, config);
 };
 
 export const getDiscordById = (id) => {
-  return axios.get(urlDiscordById + id);
+  const config = { headers: authHeader() };
+  return axios.get(urlDiscordById + id, config);
 };

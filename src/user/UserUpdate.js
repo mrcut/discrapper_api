@@ -15,7 +15,6 @@ import { KeyboardBackspace } from "@mui/icons-material";
 
 let userInput = {
   email: "",
-  mdp: "",
   nom: "",
   prenom: "",
   tel: "",
@@ -41,7 +40,6 @@ const UserUpdate = () => {
           return {
             email: data.utilisateurEmail,
             nom: data.utilisateurNom,
-            mdp: data.utilisateurMdp,
             prenom: data.utilisateurPrenom,
             tel: data.utilisateurTel,
             discord: data.utilisateurDiscord,
@@ -111,7 +109,7 @@ const UserUpdate = () => {
           <Alert severity="error">{error}</Alert>
         ) : null}
         <Grid container sx={{ pt: 5 }} spacing={3}>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12}>
             <TextField
               required
               id="email"
@@ -120,21 +118,6 @@ const UserUpdate = () => {
               variant="outlined"
               name="email"
               autoComplete="email"
-              fullWidth
-              onChange={handleChange}
-              onFocus={handleFocus}
-            />
-          </Grid>
-
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              id="mdp"
-              name="mdp"
-              label="Password"
-              type="password"
-              variant="outlined"
-              autoComplete="mdp"
               fullWidth
               onChange={handleChange}
               onFocus={handleFocus}

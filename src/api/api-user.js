@@ -38,11 +38,13 @@ export const getAllUsers = () => {
 };
 
 export const getUserById = (id) => {
-  return axios.get(urlUserById + id);
+  const config = { headers: authHeader() };
+  return axios.get(urlUserById + id, config);
 };
 
 export const deleteUser = (id) => {
-  return axios.delete(urlUserDelete + id);
+  const config = { headers: authHeader() };
+  return axios.delete(urlUserDelete + id, config);
 };
 
 export const updateUser = (id, inputs) => {

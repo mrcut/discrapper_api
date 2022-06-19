@@ -30,8 +30,6 @@ const DiscordUpdate = () => {
     getDiscordById(paramId)
       .then((response) => {
         const data = response.data;
-        console.log(data);
-
         setDiscordForm((actual) => {
           return {
             discordNom: data.discordNom,
@@ -66,7 +64,6 @@ const DiscordUpdate = () => {
     updateDiscord(paramId, discordForm)
       .then((response) => {
         const discord = response.data;
-        console.log(discord);
         setMessage((actual) => "Changements effectués");
       })
       .catch((err) => {

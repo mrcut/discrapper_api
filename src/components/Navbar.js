@@ -50,7 +50,6 @@ const Navbar = ({ user, logout }) => {
       .then((response) => {
         const script = response.data;
         alert(script);
-        console.log(script);
       })
       .catch((err) => {
         const message = err.response.data.message;

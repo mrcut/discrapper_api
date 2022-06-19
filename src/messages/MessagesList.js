@@ -32,6 +32,7 @@ const MessagesList = () => {
     setIdCategorie((actual) => id);
   };
 
+
   useEffect(() => {
     getAllCategories()
       .then((response) => {

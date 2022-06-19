@@ -27,9 +27,9 @@ export const editProfile = (inputs) => {
   return axios.put(urlUserProfile, inputs, config);
 };
 
-export const executeScript = (inputs) => {
+export const executeScript = () => {
   const config = { headers: authHeader() };
-  return axios.post(urlUserScript, inputs, config);
+  return axios.get(urlUserScript, config);
 };
 
 export const getAllUsers = () => {

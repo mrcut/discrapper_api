@@ -40,9 +40,11 @@ const Navbar = ({ user, logout }) => {
     }
     if (item.label === dc) {
       logout();
+      navigate("/");
     } else {
       navigate(item.route);
     }
+    setAnchorElUser(null);
   };
 
   const handleScript = () => {
@@ -86,11 +88,15 @@ const Navbar = ({ user, logout }) => {
       setNav((actual) => navbarEmploye);
       setMenu((actual) => settingsEmploye);
     }
-    if (user === null) {
-      setNav(navbarUser);
-      setMenu(settingsEmploye);
+    if (user && user.role === "user") {
+      setNav((actual) => navbarUser);
+      setMenu((actual) => settingsEmploye);
     }
-  }, [user]);
+
+    if (!user) {
+      setNav((actual) => navbarUser);
+    }
+  }, [[user]]);
 
   return (
     <Header position="static">
@@ -114,10 +120,9 @@ const Navbar = ({ user, logout }) => {
           >
             Discrapper
           </Typography>
-
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
-              size="large"
+              size="small"
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
@@ -126,6 +131,7 @@ const Navbar = ({ user, logout }) => {
             >
               <MenuIcon />
             </IconButton>
+
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -144,8 +150,8 @@ const Navbar = ({ user, logout }) => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {nav.map((item, index) => (
-                <MenuItem key={item.id} onClick={handleCloseNavMenu}>
+              {nav.map((item) => (
+                <MenuItem key={item.id} onClick={() => handleClick(item)}>
                   <Typography textAlign="center">
                     {item.icon}
                     {item.label}
@@ -154,7 +160,6 @@ const Navbar = ({ user, logout }) => {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -174,7 +179,7 @@ const Navbar = ({ user, logout }) => {
             Discrapper
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {nav.map((item, index) => (
+            {nav.map((item) => (
               <Button
                 key={item.id}
                 onClick={() => handleClick(item)}
@@ -189,11 +194,14 @@ const Navbar = ({ user, logout }) => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                {user ? (
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                ) : null}
               </IconButton>
             </Tooltip>
+            {/* ) : null} */}
             <Menu
-              sx={{ mt: "45px" }}
+              sx={{ mt: "40px" }}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
@@ -208,7 +216,7 @@ const Navbar = ({ user, logout }) => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {menu.map((item, index) => (
+              {menu.map((item) => (
                 <MenuItem key={item.id} onClick={() => handleClick(item)}>
                   <Typography textAlign="center">
                     {item.icon}

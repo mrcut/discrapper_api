@@ -26,7 +26,7 @@ const UserCreate = () => {
   const [userForm, setUserFrom] = useState({ ...userInput });
 
   const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState({});
 
   const handleFocus = () => {
     if (message) {
@@ -50,7 +50,8 @@ const UserCreate = () => {
         setMessage((actual) => "L'Utilisateur a bien été ajouté");
       })
       .catch((err) => {
-        setError((actual) => err.response.data.message);
+        const message = err.response.data.message;
+        setError((actual) => JSON.parse(message));
       });
   };
 
@@ -74,11 +75,7 @@ const UserCreate = () => {
         Create a New User
       </Typography>
       <form onSubmit={handleSubmit}>
-        {message ? (
-          <Alert severity="success">{message}</Alert>
-        ) : error ? (
-          <Alert severity="error">{error}</Alert>
-        ) : null}
+        {message && <Alert severity="success">{message}</Alert>}
         <Grid container sx={{ pt: 5 }} spacing={3}>
           <Grid item xs={12} sm={6}>
             <TextField
@@ -92,6 +89,7 @@ const UserCreate = () => {
               onChange={handleChange}
               onFocus={handleFocus}
             />
+            {error.erEmail && <Alert severity="error">{error.erEmail}</Alert>}
           </Grid>
 
           <Grid item xs={12} sm={6}>
@@ -107,6 +105,7 @@ const UserCreate = () => {
               onChange={handleChange}
               onFocus={handleFocus}
             />
+            {error.erMdp && <Alert severity="error">{error.erMdp}</Alert>}
           </Grid>
 
           <Grid item xs={12}>
@@ -120,6 +119,7 @@ const UserCreate = () => {
               onChange={handleChange}
               onFocus={handleFocus}
             />
+            {error.erNom && <Alert severity="error">{error.erNom}</Alert>}
           </Grid>
 
           <Grid item xs={12}>
@@ -133,6 +133,7 @@ const UserCreate = () => {
               onFocus={handleFocus}
               fullWidth
             />
+            {error.erPrenom && <Alert severity="error">{error.erPrenom}</Alert>}
           </Grid>
 
           <Grid item xs={12}>
@@ -145,6 +146,7 @@ const UserCreate = () => {
               onChange={handleChange}
               onFocus={handleFocus}
             />
+            {error.erTel && <Alert severity="error">{error.erTel}</Alert>}
           </Grid>
 
           <Grid item xs={12}>
@@ -157,6 +159,9 @@ const UserCreate = () => {
               onChange={handleChange}
               onFocus={handleFocus}
             />
+            {error.erDiscord && (
+              <Alert severity="error">{error.erDiscord}</Alert>
+            )}
           </Grid>
 
           <Grid item xs={12}>
